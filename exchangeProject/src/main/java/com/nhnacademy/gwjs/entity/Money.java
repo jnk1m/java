@@ -1,6 +1,6 @@
 package com.nhnacademy.gwjs.entity;
 
-import com.nhnacademy.gwjs.exception.MintNegativeValueMoneyException;
+import com.nhnacademy.gwjs.exception.CreateMoneyWithNegativeNumbers;
 
 import java.util.Objects;
 
@@ -22,8 +22,12 @@ public class Money {
     }
 
     public static Money of(double amount, Currency currency) {
-        isAmountPositive(amount);
+        isPositiveAmount(amount);
         return new Money(amount, currency);
+    }
+
+    void test(double amount, Currency currency){
+
     }
 
     @Override
@@ -39,9 +43,9 @@ public class Money {
         return Objects.hash(amount, currency);
     }
 
-    private static void isAmountPositive(double amount) {
+    private static void isPositiveAmount(double amount) {
         if (amount < 0) {
-            throw new MintNegativeValueMoneyException(amount);
+            throw new CreateMoneyWithNegativeNumbers(amount);
         }
     }
 }
