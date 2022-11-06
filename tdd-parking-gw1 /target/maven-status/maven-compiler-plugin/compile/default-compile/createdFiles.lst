@@ -1,0 +1,12 @@
+com/nhnacademy/gw1/parking/exception/TrucksRegulationException.class
+com/nhnacademy/gw1/parking/entity/Car.class
+com/nhnacademy/gw1/parking/entity/User.class
+com/nhnacademy/gw1/parking/exception/NoVacantException.class
+com/nhnacademy/gw1/parking/repository/MapCarRepository.class
+com/nhnacademy/gw1/parking/parkinglot/Entrance.class
+com/nhnacademy/gw1/parking/parkinglot/Exit.class
+com/nhnacademy/gw1/parking/exception/CarNumOver4DigitsException.class
+com/nhnacademy/gw1/parking/repository/ParkingRepository.class
+com/nhnacademy/gw1/parking/entity/CarType.class
+com/nhnacademy/gw1/parking/parkinglot/ParkingLot.class
+com/nhnacademy/gw1/parking/service/ParkingService.class

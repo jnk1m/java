@@ -1,0 +1,12 @@
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/entity/User.java
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/repository/MapCarRepository.java
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/parkinglot/Entrance.java
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/service/ParkingService.java
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/exception/TrucksRegulationException.java
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/exception/NoVacantException.java
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/entity/CarType.java
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/parkinglot/ParkingLot.java
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/parkinglot/Exit.java
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/exception/CarNumOver4DigitsException.java
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/entity/Car.java
+/Users/jieunkim/IdeaProjects/tdd-parking-gw1 복사본/src/main/java/com/nhnacademy/gw1/parking/repository/ParkingRepository.java
