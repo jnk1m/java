@@ -1,10 +1,12 @@
 package com.academy.score.domain;
 
-import lombok.Value;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 
-@Value
+@Getter
+@NoArgsConstructor
 public class StudentModifyRequest {
     @NotBlank
     String name;

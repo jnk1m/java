@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -31,8 +30,8 @@ public class StudentRegisterController {
 
     @PostMapping
     public String doStudentRegister(@Valid @ModelAttribute StudentRegisterRequest studentRegisterRequest,
-                                  BindingResult bindingResult,
-                                  Model model
+                                    BindingResult bindingResult,
+                                    Model model
     ) {
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
@@ -40,7 +39,7 @@ public class StudentRegisterController {
         Student student = studentRepository.register(studentRegisterRequest.getName(),
                 studentRegisterRequest.getEmail(), studentRegisterRequest.getScore(), studentRegisterRequest.getComment());
 
-        model.addAttribute("student",student);
+        model.addAttribute("student", student);
         model.addAttribute("studentId", student.getId());
 
         return "redirect:/student/{studentId}";

@@ -1,10 +1,13 @@
 package com.academy.score.domain;
 
-import lombok.Value;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.*;
 
-@Value
+
+@NoArgsConstructor
+@Getter
 public class StudentRegisterRequest {
     @NotBlank
     String name;

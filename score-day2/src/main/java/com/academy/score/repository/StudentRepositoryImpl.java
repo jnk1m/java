@@ -5,7 +5,7 @@ import com.academy.score.domain.Student;
 import java.util.HashMap;
 import java.util.Map;
 
-public class StudentRepositoryImpl implements StudentRepository{
+public class StudentRepositoryImpl implements StudentRepository {
     Map<Long, Student> studentMap = new HashMap<>();
     static long id = 0;
 

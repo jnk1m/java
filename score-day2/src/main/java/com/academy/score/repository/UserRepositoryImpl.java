@@ -5,18 +5,18 @@ import com.academy.score.domain.User;
 import java.util.HashMap;
 import java.util.Map;
 
-public class UserRepositoryImpl implements UserRepository{
+public class UserRepositoryImpl implements UserRepository {
     Map<String, User> userMap = new HashMap<>();
 
     @Override
     public User register(String email, String password) {
-        userMap.put(email,new User(email,password));
+        userMap.put(email, new User(email, password));
         return userMap.get(email);
     }
 
     @Override
     public User modify(String email, String password) {
-        userMap.put(email,new User(email,password));
+        userMap.put(email, new User(email, password));
         return userMap.get(email);
     }
 

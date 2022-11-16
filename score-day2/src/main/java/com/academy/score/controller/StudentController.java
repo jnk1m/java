@@ -33,13 +33,13 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}")
-    public String StudentView(Student student, Model model) {
+    public String studentView(Student student, Model model) {
         model.addAttribute("student", student);
         return "studentView";
     }
 
     @GetMapping(value = "/{studentId}", params = "hideScore=yes")
-    public String StudentViewHideScore(Student student,
+    public String studentViewHideScore(Student student,
                                        Model model) {
 
         model.addAttribute("hideScore", "hideScore");

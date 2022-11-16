@@ -11,9 +11,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 
 
-
-
-
 @Configuration
 @ComponentScan(basePackageClasses = Base.class,
         excludeFilters = {@ComponentScan.Filter(Controller.class)})
@@ -21,11 +18,12 @@ public class RootConfig {
     @Bean
     public StudentRepository studentRepository() {
         StudentRepository studentRepository = new StudentRepositoryImpl();
-        studentRepository.register("Dave Grohl","dave@grohl.com",100,"American rock band the Foo Fighter's front man.");
+        studentRepository.register("Dave Grohl", "dave@grohl.com", 100, "American Rock Band the Foo Fighter's front man.");
 
         return studentRepository;
 
     }
+
     @Bean
     public UserRepository userRepository() {
         UserRepository userRepository = new UserRepositoryImpl();

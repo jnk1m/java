@@ -21,6 +21,7 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
+
     @GetMapping("/login")
     public String getLoginForm() {
         return "loginForm";
@@ -41,17 +42,6 @@ public class UserController {
         return "studentRegister";
     }
 
-    private void checkExistUser(String email) {
-        if (!userRepository.exists(email)) {
-            throw new UserNotExistException();
-        }
-    }
-    private static void checkPassword(String password, User user) {
-        if (!user.getPassword().equals(password)) {
-            throw new IncorrectPasswordException();
-        }
-    }
-
     @ExceptionHandler(UserNotExistException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public String handleUserNotExistException(UserNotExistException ex, Model model) {
@@ -64,6 +54,18 @@ public class UserController {
     public String handleIncorrectPasswordException(IncorrectPasswordException ex, Model model) {
         model.addAttribute("exception", ex);
         return "error";
+    }
+
+    private void checkExistUser(String email) {
+        if (!userRepository.exists(email)) {
+            throw new UserNotExistException();
+        }
+    }
+
+    private static void checkPassword(String password, User user) {
+        if (!user.getPassword().equals(password)) {
+            throw new IncorrectPasswordException();
+        }
     }
 
 }

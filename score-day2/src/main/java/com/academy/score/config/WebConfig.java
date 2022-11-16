@@ -54,7 +54,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LocaleChangeInterceptor());
         registry.addInterceptor(new LoginCheckInterceptor())
-                .excludePathPatterns("/user/login");
+                .excludePathPatterns("/user/login", "/students/**");
     }
 
     @Bean
@@ -70,7 +70,7 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
         viewResolver.setTemplateEngine(templateEngine());
         viewResolver.setCharacterEncoding("UTF-8");
         viewResolver.setOrder(1);
-        viewResolver.setViewNames(new String[] { "*" });
+        viewResolver.setViewNames(new String[]{"*"});
 
         return viewResolver;
     }
