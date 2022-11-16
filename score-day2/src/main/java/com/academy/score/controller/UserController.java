@@ -21,12 +21,6 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-    private static void checkPassword(String password, User user) {
-        if (!user.getPassword().equals(password)) {
-            throw new IncorrectPasswordException();
-        }
-    }
-
     @GetMapping("/login")
     public String getLoginForm() {
         return "loginForm";
@@ -50,6 +44,11 @@ public class UserController {
     private void checkExistUser(String email) {
         if (!userRepository.exists(email)) {
             throw new UserNotExistException();
+        }
+    }
+    private static void checkPassword(String password, User user) {
+        if (!user.getPassword().equals(password)) {
+            throw new IncorrectPasswordException();
         }
     }
 

@@ -21,7 +21,7 @@ public class RootConfig {
     @Bean
     public StudentRepository studentRepository() {
         StudentRepository studentRepository = new StudentRepositoryImpl();
-        studentRepository.register("Dave Grohl","dave@gorhl.com",100,"American rock band the Foo Fighter's front man.");
+        studentRepository.register("Dave Grohl","dave@grohl.com",100,"American rock band the Foo Fighter's front man.");
 
         return studentRepository;
 

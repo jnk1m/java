@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 
@@ -47,12 +48,14 @@ public class StudentController {
     }
 
     @GetMapping("/{studentId}/modify")
-    public String studentModifyForm(Student student, Model model) {
-        model.addAttribute("student", student);
-        return "studentModify";
+    public ModelAndView studentModifyForm(Student student, Model model) {
+        ModelAndView mav = new ModelAndView("studentModify");
+        mav.addObject("student", student);
+
+        return mav;
     }
 
-    @PostMapping("/{studentId}/modify") //url에 modify를 떼보기..?
+    @PostMapping("/{studentId}/modify")
     public String studentModify(@Valid @ModelAttribute StudentModifyRequest studentModifyRequest,
                                 BindingResult bindingResult,
                                 Student student,

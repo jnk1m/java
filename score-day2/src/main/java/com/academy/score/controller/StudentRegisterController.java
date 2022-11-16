@@ -5,6 +5,7 @@ import com.academy.score.domain.StudentRegisterRequest;
 import com.academy.score.exception.ValidationFailedException;
 import com.academy.score.repository.StudentRepository;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,18 +30,20 @@ public class StudentRegisterController {
     }
 
     @PostMapping
-    public ModelAndView registerStudent(@Valid @ModelAttribute StudentRegisterRequest studentRegisterRequest,
-                                        BindingResult bindingResult
+    public String doStudentRegister(@Valid @ModelAttribute StudentRegisterRequest studentRegisterRequest,
+                                  BindingResult bindingResult,
+                                  Model model
     ) {
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
         }
         Student student = studentRepository.register(studentRegisterRequest.getName(),
                 studentRegisterRequest.getEmail(), studentRegisterRequest.getScore(), studentRegisterRequest.getComment());
-        ModelAndView mav = new ModelAndView("studentView");
-        mav.addObject("student", student);
 
-        return mav;
+        model.addAttribute("student",student);
+        model.addAttribute("studentId", student.getId());
+
+        return "redirect:/student/{studentId}";
     }
 
 }
