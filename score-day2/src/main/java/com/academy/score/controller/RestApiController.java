@@ -63,7 +63,6 @@ public class RestApiController {
                 studentModifyRequest.getComment());
 
         return ResponseEntity.created(URI.create("/studentId")).body(student);
-
     }
 
 }
