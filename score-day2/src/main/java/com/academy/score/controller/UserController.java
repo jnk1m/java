@@ -28,9 +28,9 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam("email") String email,
-                        @RequestParam("password") String password,
-                        HttpServletRequest request) {
+    public String doLogin(@RequestParam("email") String email,
+                          @RequestParam("password") String password,
+                          HttpServletRequest request) {
         checkExistUser(email);
         User user = userRepository.getUser(email);
 
@@ -40,6 +40,12 @@ public class UserController {
         session.setAttribute("LoginUser", user);
 
         return "studentRegister";
+    }
+
+    @GetMapping("/logout")
+    public String doLogout(HttpServletRequest request) {
+        request.getSession(false).removeAttribute("LoginUser");
+        return "/loginForm";
     }
 
     @ExceptionHandler(UserNotExistException.class)
