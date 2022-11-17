@@ -3,6 +3,7 @@ package com.academy.score.controller;
 import com.academy.score.domain.Student;
 import com.academy.score.domain.StudentModifyRequest;
 import com.academy.score.exception.StudentNotExistException;
+import com.academy.score.exception.UserNotExistException;
 import com.academy.score.exception.ValidationFailedException;
 import com.academy.score.repository.StudentRepository;
 import org.springframework.http.HttpStatus;
@@ -63,6 +64,10 @@ public class StudentController {
 
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
+        }
+
+        if (!studentRepository.exists(student.getId())) {
+            throw new StudentNotExistException(student.getId());
         }
 
         Student modifiedStudent = studentRepository.modify(student.getId(),
