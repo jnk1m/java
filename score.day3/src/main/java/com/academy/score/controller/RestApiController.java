@@ -6,7 +6,6 @@ import com.academy.score.domain.StudentRegisterRequest;
 import com.academy.score.exception.StudentNotExistException;
 import com.academy.score.exception.ValidationFailedException;
 import com.academy.score.repository.StudentRepository;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
@@ -24,7 +23,7 @@ public class RestApiController {
     }
 
     @GetMapping("/{studentId}")
-    public Student StudentView(@PathVariable("studentId") long studentId) {
+    public Student getStudentById(@PathVariable("studentId") long studentId) {
         if (!studentRepository.exists(studentId)) {
             throw new StudentNotExistException(studentId);
         }
@@ -32,9 +31,8 @@ public class RestApiController {
     }
 
     @PostMapping
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> doStudentRegister(@Valid @RequestBody StudentRegisterRequest studentRegisterRequest,
-                                               BindingResult bindingResult) {
+    public ResponseEntity<Student> doStudentRegister(@Valid @RequestBody StudentRegisterRequest studentRegisterRequest,
+                                                     BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
         }
@@ -44,25 +42,29 @@ public class RestApiController {
                 studentRegisterRequest.getScore(),
                 studentRegisterRequest.getComment());
 
-        return ResponseEntity.created(URI.create("/students")).body(student);
+        return ResponseEntity.created(URI.create("/students/" + student.getId())).build();
     }
 
     @PutMapping("/{studentId}")
-    @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> doPutStudent(@PathVariable("studentId") long studentId,
-                                          @Valid @RequestBody StudentModifyRequest studentModifyRequest,
-                                          BindingResult bindingResult) {
+    public ResponseEntity<Student> doPutStudent(@PathVariable("studentId") long studentId,
+                                                @Valid @RequestBody StudentModifyRequest studentModifyRequest,
+                                                BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             throw new ValidationFailedException(bindingResult);
         }
 
-        Student student = studentRepository.modify(studentId,
+        if (!studentRepository.exists(studentId)) {
+            throw new StudentNotExistException(studentId);
+        }
+
+        studentRepository.modify(studentId,
                 studentModifyRequest.getName(),
                 studentModifyRequest.getEmail(),
                 studentModifyRequest.getScore(),
                 studentModifyRequest.getComment());
 
-        return ResponseEntity.created(URI.create("/studentId")).body(student);
-    }
+        return ResponseEntity.status(200)
+                .location(URI.create("/students/" + studentId)).build();
 
+    }
 }
