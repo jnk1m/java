@@ -3,12 +3,13 @@ package com.academy.score.controller;
 import com.academy.score.domain.Student;
 import com.academy.score.exception.StudentNotExistException;
 import com.academy.score.repository.StudentRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.util.NestedServletException;
 
@@ -17,8 +18,7 @@ import static org.assertj.core.api.Assertions.catchThrowable;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -27,10 +27,12 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class RestApiControllerTest {
     private MockMvc mockMvc;
     StudentRepository studentRepository;
+    ObjectMapper objectMapper;
 
     @BeforeEach
     void setUp() {
         studentRepository = mock(StudentRepository.class);
+        objectMapper = new ObjectMapper();
         mockMvc = MockMvcBuilders.standaloneSetup(new RestApiController(studentRepository))
                 .defaultRequest(get("/students/1").accept(MediaType.APPLICATION_JSON))
                 .alwaysDo(print())
@@ -38,6 +40,7 @@ class RestApiControllerTest {
     }
 
     @Test
+    @DisplayName("존재하는 학생 정보 조회 성공")
     void getStudentTest() throws Exception {
         Student student = new Student(1, "Kurt", "kurt@cobain.com", 100, "Nirvana");
         when(studentRepository.getStudent(anyLong())).thenReturn(student);
@@ -53,36 +56,49 @@ class RestApiControllerTest {
     }
 
     @Test
-    void studentNotExistTest() {
+    @DisplayName("존재하지 않는 학생 정보 조회 실패")
+    void studentNotExistExceptionTest() {
         Throwable throwable = catchThrowable(() ->
                 mockMvc.perform(get("/students/{studentId}", "2"))
                         .andExpect(status().isNotFound()));
 
         assertThat(throwable).isInstanceOf(NestedServletException.class)
                 .hasCauseInstanceOf(StudentNotExistException.class);
+
     }
 
     @Test
+    @DisplayName("학생 등록 성공")
     void doStudentRegister() throws Exception {
-//        Student student = new Student(1, "Kurt", "kurt@cobain.com", 100, "Nirvana");
-//        when(studentRepository.register("Kurt", "kurt@cobain.com", 100, "Nirvana")).thenReturn(student);
-//
-//        MvcResult mvcResult = mockMvc.perform(post("/students")
-//                .contentType(noCon).content(inputJson)).andReturn();
-//        //MvcResult mvcResult = mockMvc.perform(post("/students").con)
-//
-//        mockMvc.perform(post("/students")).andExpect(status().isCreated());
+        Student student = new Student(1, "Kurt", "kurt@cobain.com", 100, "Nirvana");
+        when(studentRepository.register("Kurt", "kurt@cobain.com", 100, "Nirvana")).thenReturn(student);
 
-
-//header에 location을 가져와서 거기로 get 요청을 보내서 가져오는지
-
+        mockMvc.perform(post("/students")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(objectMapper.writeValueAsString(student))).andExpect(status().isCreated());
     }
 
     @Test
-    void doStudentRegister_fail() {
+    @DisplayName("학생 수정 성공")
+    void doPutStudent_success() throws Exception {
+        Student student = new Student(1, "Kurt", "kurt@cobain.com", 100, "Nirvana");
+        Student studentModified = new Student(1, "Krist", "krist@novoselic.com", 100, "Nirvana");
+
+        when(studentRepository.register("Kurt", "kurt@cobain.com", 100, "Nirvana")).thenReturn(student);
+        when(studentRepository.exists(anyLong())).thenReturn(true);
+        when(studentRepository.modify(1, "Krist", "krist@novoselic.com", 100, "Nirvana")).thenReturn(studentModified);
+
+        mockMvc.perform(put("/students/{studentId}", "1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(studentModified))).andExpect(status().isOk())
+                .andExpect(jsonPath("$.id").value(studentModified.getId()))
+                .andExpect(jsonPath("$.name").value(studentModified.getName()))
+                .andExpect(jsonPath("$.email").value(studentModified.getEmail()))
+                .andExpect(jsonPath("$.score").value(studentModified.getScore()))
+                .andExpect(jsonPath("$.comment").value(studentModified.getComment()));
+        ;
     }
 
-    @Test
-    void doPutStudent() {
-    }
+
+
 }

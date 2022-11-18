@@ -21,7 +21,6 @@ public class UserController {
         this.userRepository = userRepository;
     }
 
-
     @GetMapping("/login")
     public String getLoginForm() {
         return "loginForm";

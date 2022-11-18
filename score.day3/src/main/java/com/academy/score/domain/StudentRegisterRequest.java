@@ -1,5 +1,6 @@
 package com.academy.score.domain;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -23,7 +24,6 @@ public class StudentRegisterRequest {
     String comment;
 }
 
-//리플렉션 순서.. 생성자가 기본으로 있어야 함. 없으면 getter -> setter를 찾음. 관련된 걸 찾아서 불러버림.
 
 
 

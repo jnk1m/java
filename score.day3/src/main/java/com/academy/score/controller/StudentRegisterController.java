@@ -4,13 +4,11 @@ import com.academy.score.domain.Student;
 import com.academy.score.domain.StudentRegisterRequest;
 import com.academy.score.exception.ValidationFailedException;
 import com.academy.score.repository.StudentRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -43,6 +41,13 @@ public class StudentRegisterController {
         model.addAttribute("studentId", student.getId());
 
         return "redirect:/student/{studentId}";
+    }
+
+    @ExceptionHandler(ValidationFailedException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public String handleValidationFailedException(ValidationFailedException ex, Model model) {
+        model.addAttribute("exception", ex);
+        return "error";
     }
 
 }

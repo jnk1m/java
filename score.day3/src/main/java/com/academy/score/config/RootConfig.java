@@ -21,7 +21,6 @@ public class RootConfig {
         studentRepository.register("Dave Grohl", "dave@grohl.com", 100, "American Rock Band the Foo Fighter's front man.");
 
         return studentRepository;
-
     }
 
     @Bean

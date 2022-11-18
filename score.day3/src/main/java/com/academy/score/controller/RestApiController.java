@@ -6,7 +6,9 @@ import com.academy.score.domain.StudentRegisterRequest;
 import com.academy.score.exception.StudentNotExistException;
 import com.academy.score.exception.ValidationFailedException;
 import com.academy.score.repository.StudentRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
@@ -57,14 +59,14 @@ public class RestApiController {
             throw new StudentNotExistException(studentId);
         }
 
-        studentRepository.modify(studentId,
+        Student student = studentRepository.modify(studentId,
                 studentModifyRequest.getName(),
                 studentModifyRequest.getEmail(),
                 studentModifyRequest.getScore(),
                 studentModifyRequest.getComment());
 
-        return ResponseEntity.status(200)
-                .location(URI.create("/students/" + studentId)).build();
+        return ResponseEntity.status(200).body(student);
 
     }
+
 }
