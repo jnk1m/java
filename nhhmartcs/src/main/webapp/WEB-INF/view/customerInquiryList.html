@@ -6,7 +6,10 @@
 
 </head>
 <body>
-<a th:href="@{/cs/logout}">로그아웃</a><br/>
+
+<button th:onclick="|location.href='@{/cs/logout}'|">로그아웃</button>
+<button th:onclick="|location.href='@{/cs/inquiry}'|">문의하기</button>
+
 <h2>나의 문의 목록</h2>
 <table border="1">
     <thead>
@@ -18,11 +21,14 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="inquiries : ${inquiries}">
-        <td><span th:text="${inquiries.title}"></span></td>
-        <td><span th:text="${inquiries.category}"></span></td>
-        <td><span th:text="${inquiries.writeDate}"></span></td>
-        <td><span th:text="${inquiries.isAnswered}"></span></td>
+    <tr th:if="${inquiries == null}">
+        <td colspan="4"> 작성된 문의가 없습니다. </td>
+    </tr>
+    <tr th:each="inquiry : ${inquiries}">
+        <td><span th:text="${inquiry.title}"></span></td>
+        <td><span th:text="${inquiry.category.getName()}"></span></td>
+        <td><span th:text="${inquiry.writeDate}"></span></td>
+        <td><span th:text="${inquiry.isAnswered} ? '답변 완료' : '답변 대기 중' "></span></td>
     </tr>
     </tbody>
 </table>

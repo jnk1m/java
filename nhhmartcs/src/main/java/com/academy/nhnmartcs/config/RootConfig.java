@@ -15,6 +15,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Controller;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +27,7 @@ public class RootConfig {
     public UserRepository userRepository() {
         UserRepository userRepository = new UserRepositoryImpl();
         userRepository.getUserMap().put("user1",new User("user1","12345","Smith", Authorization.CUSTOMER));
+        userRepository.getUserMap().put("user2",new User("user2","12345","John", Authorization.CUSTOMER));
         userRepository.getUserMap().put("admin",new User("admin","123","Admin",Authorization.ADMIN));
 
         return userRepository;
@@ -33,13 +35,12 @@ public class RootConfig {
 
     @Bean
     public InquiryRepository inquiryRepository(){
-        InquiryRepository inquiryRepository = new InquiryRepositoryImpl();
-        List<Inquiry> inquiryList = new ArrayList<>();
-
-        inquiryList.add(new Inquiry("제목", InquiryCategory.COMPLIMENT,"test",
-                LocalDateTime.now().withNano(0),"user1",false));
-
-        inquiryRepository.getInquiryMap().put("user1",inquiryList);
-        return inquiryRepository;
+        //        List<Inquiry> inquiryList = new ArrayList<>();
+//
+//        inquiryList.add(new Inquiry("제목", InquiryCategory.COMPLIMENT.getName(),"test",
+//                LocalDateTime.now().format(DateTimeFormatter.ISO_DATE),"user1",false));
+//
+//        inquiryRepository.getInquiryMap().put("user1",inquiryList);
+        return new InquiryRepositoryImpl();
     }
 }
