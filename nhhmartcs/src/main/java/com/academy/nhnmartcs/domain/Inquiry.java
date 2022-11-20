@@ -17,7 +17,7 @@ public class Inquiry {
     InquiryCategory category;
 
     @Size(min = 0 , max = 4000)
-    String content;
+    String comment;
 
     String writeDate;
 

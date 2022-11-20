@@ -6,12 +6,11 @@ import java.util.Map;
 
 public interface UserRepository {
 
-    public User getUser(String id);
+    User getUser(String id);
 
-    public boolean exist(String id);
+    boolean exist(String id);
 
-    public Map<String, User> getUserMap();
-
+    Map<String, User> getUserMap();
 
 
 }
