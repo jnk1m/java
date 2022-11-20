@@ -14,11 +14,12 @@
                 th:value="${i}" th:text="${i.getName()}"></option>
     </select>
     <br/>
-    본문 : <br/><textarea name="comment" rows="10" cols="40"></textarea><br/>
+    내용 : <br/><textarea name="comment" rows="10" cols="40"></textarea><br/>
     첨부파일: <input multiple="multiple" type="file" name="file"/><br/>
 
     <input type="submit" value="저장"/>
 </form>
+<button th:onclick="|location.href='@{/cs}'|">취소</button>
 
 </body>
 </html>

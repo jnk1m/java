@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <title>나의 문의 목록</title>
-
 </head>
 <body>
 
@@ -14,18 +13,19 @@
 <table border="1">
     <thead>
     <tr>
-        <th> 제목 </th>
-        <th> 분류 </th>
-        <th> 작성일시 </th>
-        <th> 답변여부 </th>
+        <th> 제목</th>
+        <th> 분류</th>
+        <th> 작성일시</th>
+        <th> 답변여부</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${inquiries == null}">
-        <td colspan="4"> 작성된 문의가 없습니다. </td>
+    <tr th:if="${inquiries==null}">
+        <td colspan="4"> 작성된 문의가 없습니다.</td>
     </tr>
     <tr th:each="inquiry : ${inquiries}">
-        <td><span th:text="${inquiry.title}"></span></td>
+
+        <td><a th:href="@{/cs/inquiryDetail(id=${inquiry.inquiryId})}" th:text="${inquiry.title}"></a></td>
         <td><span th:text="${inquiry.category.getName()}"></span></td>
         <td><span th:text="${inquiry.writeDate}"></span></td>
         <td><span th:text="${inquiry.isAnswered} ? '답변 완료' : '답변 대기 중' "></span></td>

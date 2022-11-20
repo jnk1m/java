@@ -1,12 +1,19 @@
 package com.academy.nhnmartcs.repository;
 
 import com.academy.nhnmartcs.domain.Inquiry;
+import com.academy.nhnmartcs.domain.InquiryCategory;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
-import java.util.Map;
+import java.util.TreeMap;
 
 public interface InquiryRepository {
-    Map<String, List<Inquiry>> getInquiryMap();
+    TreeMap<Integer, Inquiry> getInquiryMap(String userId);
 
-    List<Inquiry> getInquiryList(String id);
+    Inquiry getInquiry(String userId, Integer inquiryId);
+
+    Inquiry addInquiryToMap(String title, InquiryCategory category, String comment, String writeDate,
+                            String userId, List<MultipartFile> file, boolean isAnswered);
+
+    List<Inquiry> getUserInquiryList(String userId);
 }

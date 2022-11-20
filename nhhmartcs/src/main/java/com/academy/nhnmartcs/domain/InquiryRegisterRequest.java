@@ -9,13 +9,13 @@ import java.util.List;
 
 @AllArgsConstructor
 @Getter
-public class Inquiry {
-    Integer inquiryId;
-
+public class InquiryRegisterRequest {
+    @Size(min = 2, max = 200)
     String title;
 
     InquiryCategory category;
 
+    @Size(min = 0, max = 4000)
     String comment;
 
     String writeDate;
@@ -23,8 +23,6 @@ public class Inquiry {
     String id;
 
     List<MultipartFile> file;
-
-    boolean isAnswered;
 
 
 }

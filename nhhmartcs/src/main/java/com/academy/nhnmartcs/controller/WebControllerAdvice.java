@@ -11,9 +11,7 @@ public class WebControllerAdvice {
     @ExceptionHandler(Exception.class)
     public String handleException(Exception ex, Model model) {
         log.error("", ex);
-        String[] splitExMessage = ex.toString().split(":");
-
-        model.addAttribute("exception", splitExMessage[1]);
+        model.addAttribute("exception", ex);
         return "error";
     }
 }
