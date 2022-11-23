@@ -12,18 +12,11 @@ public class DefaultUserLoginService implements UserLoginService {
     }
 
     @Override
-    public User login(User user) throws LoginFailException {
-        User userFromRepo = userRepository.findById(user.getId());
-        checkUserWasFound(userFromRepo);
-        checkMatchedPwd(user.getPassword(), userFromRepo.getPassword());
+    public User login(String username, String password) throws LoginFailException {
+        User userFromRepo = userRepository.findByUserName(username);
+        checkMatchedPwd(password, userFromRepo.getPassword());
 
         return userFromRepo;
-    }
-
-    private void checkUserWasFound(User userFromRepo) throws LoginFailException {
-        if (userFromRepo == null) {
-            throw new LoginFailException();
-        }
     }
 
     private void checkMatchedPwd(String password, String userPassword) throws LoginFailException {

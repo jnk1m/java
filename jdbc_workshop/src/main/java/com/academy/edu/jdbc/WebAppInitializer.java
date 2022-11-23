@@ -1,5 +1,6 @@
 package com.academy.edu.jdbc;
 
+import com.academy.edu.jdbc.config.RootConfig;
 import com.academy.edu.jdbc.config.WebConfig;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
