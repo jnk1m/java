@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.academy.jdbc.board.mapper.UserMapper">
+    <select id="selectUser" resultType="com.academy.jdbc.board.domain.User">
+        select *
+        from BoardUser
+        where user_name = #{username}
+    </select>
+
+    <select id="selectUsers" resultType="com.academy.jdbc.board.domain.User">
+        select *
+        from BoardUser
+    </select>
+
+</mapper>

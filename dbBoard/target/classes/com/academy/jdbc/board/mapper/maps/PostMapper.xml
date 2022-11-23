@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.academy.jdbc.board.mapper.PostMapper">
+    <select id="selectPost" resultType="com.academy.jdbc.board.domain.Post">
+        select *
+        from BoardPost
+        where id = #{id}
+    </select>
+
+    <select id="selectPosts" resultType="com.academy.jdbc.board.domain.Post">
+        SELECT id, title, writer, modifier, created_at,
+               (SELECT count(*) FROM BoardComment WHERE post_id =1)
+        FROM BoardPost
+        WHERE visibility=1;
+    </select>
+
+    <insert id="insertPost">
+        insert into BoardPost(id, name, created_at)
+        values (#{id}, '${name}', #{createdAt})
+    </insert>
+
+    <update id="updateNameById">
+        update BoardPost set name='${name}'
+        where id = #{id}
+    </update>
+
+    <delete id="deleteById">
+        delete from BoardPost where id=#{id}
+    </delete>
+</mapper>
