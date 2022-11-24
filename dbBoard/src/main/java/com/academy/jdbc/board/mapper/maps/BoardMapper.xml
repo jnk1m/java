@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.academy.jdbc.board.mapper.BoardMapper">
+    <resultMap id="getBoardList1" type="com.academy.jdbc.board.domain.Board">
+        <result column="username" property="writer" />
+    </resultMap>
+    <select id="getBoardList" resultType="com.academy.jdbc.board.domain.Board">
+        SELECT p.id, p.title, u.user_name, um.user_name, p.created_at, count(c.id)
+        FROM BoardPost as p
+                 INNER JOIN BoardComment as c on c.post_id = p.id
+                 INNER JOIN BoardUser as u on u.id = p.writer
+                 LEFT JOIN BoardUser as um on um.id = p.modifier
+        WHERE p.visibility = 1
+        GROUP BY c.post_id;
+    </select>
+
+</mapper>

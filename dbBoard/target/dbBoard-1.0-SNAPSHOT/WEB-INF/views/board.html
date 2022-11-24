@@ -5,30 +5,36 @@
     <title>Board</title>
 </head>
 <body>
+<h1>The Foo Fighters Forum</h1>
 
-<button th:onclick="|location.href='@{/cs/logout}'|">로그아웃</button>
-<button th:onclick="|location.href='@{/cs/inquiry}'|">문의하기</button>
-
-<h2>Board</h2>
+<button th:onclick="|location.href='@{/cs/inquiry}'|">글 작성</button>
 <table border="1">
     <thead>
     <tr>
-        <th> 제목</th>
-        <th> 분류</th>
-        <th> 작성일시</th>
-        <th> 답변여부</th>
+        <th>글번호</th>
+        <th>타이틀</th>
+        <th>작성자</th>
+        <th>수정자</th>
+        <th>작성일</th>
+        <th>댓글 개수</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:if="${posts==null}">
-        <td colspan="4"> 작성된 문의가 없습니다.</td>
+    <tr th:if="${boards == null}">
+        <td colspan="5"> No Post</td>
     </tr>
-    <tr th:each="post : ${posts}">
+    <tr th:each="board : ${boards}">
 
-        <td><a th:href="@{/cs/inquiryDetail(id=${inquiry.inquiryId})}" th:text="${inquiry.title}"></a></td>
-        <td><span th:text="${post.getTitle()}"></span></td>
-        <td><span th:text="${post.writeDate}"></span></td>
-        <td><span th:text="${post.isAnswered} ? '답변 완료' : '답변 대기 중' "></span></td>
+        <td><span th:text="${board.id}"></span></td>
+        <td><a th:href="@{board/post(id=${board.getId()})}" th:text="${board.getTitle()}"></a></td>
+        <td><span th:text="${board.getWriter()}"></span></td>
+        <td>
+            <p th:if="${board.getModifier() != null}">
+                <span th:text="${board.getModifier()}"></span>
+            </p>
+        </td>
+        <td><span th:text="${board.getCreatedAt()}"></span></td>
+        <td><span th:text="${board.getCommentCount()}"></span></td>
     </tr>
     </tbody>
 </table>

@@ -11,10 +11,10 @@
     </select>
 
     <select id="selectPosts" resultType="com.academy.jdbc.board.domain.Post">
-        SELECT id, title, writer, modifier, created_at,
+        SELECT id, title, writer, created_at,
                (SELECT count(*) FROM BoardComment WHERE post_id =1)
         FROM BoardPost
-        WHERE visibility=1;
+        WHERE visibility=1
     </select>
 
     <insert id="insertPost">
