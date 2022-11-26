@@ -1,7 +1,6 @@
 package com.academy.jdbc.board.domain;
 
 import lombok.Getter;
-import lombok.Value;
 
 import java.sql.Timestamp;
 
@@ -9,25 +8,25 @@ import java.sql.Timestamp;
 public class Board {
     private final int id;
     private final String title;
-    private String writer;
-    private String modifier;
-    private final Timestamp createdAt;
+    private final String created_by;
+    private String updated_by;
+    private final Timestamp created_at;
     private final long commentCount;
 
-    public Board(int id, String title, String writer, Timestamp createdAt, long commentCount) {
+    public Board(int id, String title, String created_by, Timestamp created_at, long commentCount) {
         this.id = id;
         this.title = title;
-        this.writer = writer;
-        this.createdAt = createdAt;
+        this.created_by = created_by;
+        this.created_at = created_at;
         this.commentCount = commentCount;
     }
 
-    public Board(int id, String title, String writer, String modifier, Timestamp createdAt, long commentCount) {
+    public Board(int id, String title, String created_by, String updated_by, Timestamp created_at, long commentCount) {
         this.id = id;
         this.title = title;
-        this.writer = writer;
-        this.modifier = modifier;
-        this.createdAt = createdAt;
+        this.created_by = created_by;
+        this.updated_by = updated_by;
+        this.created_at = created_at;
         this.commentCount = commentCount;
     }
 

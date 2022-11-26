@@ -1,5 +1,8 @@
 package com.academy.jdbc.board.domain;
 
+import lombok.Getter;
+
+@Getter
 public class User {
     private int id;
     private final String userName;
@@ -17,22 +20,6 @@ public class User {
         this.userName = userName;
         this.password = password;
         this.role = role;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public int getRole() {
-        return role;
     }
 
     @Override

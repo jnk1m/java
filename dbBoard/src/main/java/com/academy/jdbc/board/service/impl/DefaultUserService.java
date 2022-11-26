@@ -6,12 +6,10 @@ import com.academy.jdbc.board.mapper.UserMapper;
 import com.academy.jdbc.board.service.UserService;
 import org.springframework.stereotype.Service;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Optional;
-
-/**
- * @Author : marco@nhnacademy.com
- * @Date : 17/05/2022
- */
 
 @Service
 public class DefaultUserService implements UserService {
@@ -23,6 +21,23 @@ public class DefaultUserService implements UserService {
 
     public Optional<User> getUser(String username) {
         return userMapper.selectUser(username);
+    }
+
+    @Override
+    public List<User> getUserList() {
+        return userMapper.selectUsers();
+    }
+
+    @Override
+    public Map<Integer, User> getUserMap() {
+        List<User> userList = userMapper.selectUsers();
+
+        Map<Integer, User> userMap = new HashMap<>();
+
+        for (User user : userList) {
+            userMap.put(user.getId(),user);
+        }
+        return userMap;
     }
 
     @Override

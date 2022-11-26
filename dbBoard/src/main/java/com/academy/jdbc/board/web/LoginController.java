@@ -15,7 +15,6 @@ import javax.servlet.http.HttpSession;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/login")
 @Slf4j
 public class LoginController {
     private final UserService userService;
@@ -24,12 +23,12 @@ public class LoginController {
         this.userService = userService;
     }
 
-    @GetMapping
+    @GetMapping("/login")
     public String getLoginForm() {
         return "loginForm";
     }
 
-    @PostMapping()
+    @PostMapping("/login")
     public String doLogin(@RequestParam("username") String username,
                           @RequestParam("password") String password,
                           HttpServletRequest request) throws LoginFailException {
@@ -38,7 +37,16 @@ public class LoginController {
         HttpSession session = request.getSession(true);
         session.setAttribute("LoginUser", user);
 
-        return "board";
+        return "redirect:/community";
     }
+
+    @GetMapping("/logout")
+    public String doLogout(HttpServletRequest request) {
+        request.getSession(false).removeAttribute("LoginUser");
+        request.getSession(false).invalidate();
+        return "redirect:/login";
+    }
+
+
 
 }

@@ -1,10 +1,74 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>게시글 상세보기</title>
 </head>
 <body>
-Post
+<h2>게시글 상세보기</h2>
+<table border="1">
+    <tr>
+        <td>번호</td>
+        <td><span th:text="${post.get().getId()}"></span></td>
+    </tr>
+    <tr>
+        <td>제목</td>
+        <td><span th:text="${post.get().getTitle()}"></span></td>
+    </tr>
+    <tr>
+        <td>내용</td>
+        <td><span th:text="${post.get().getContent()}"></span></td>
+    </tr>
+    <tr>
+        <td>작성자</td>
+        <td><span th:text="${post.get().getCreated_by().getUserName()}"></span></td>
+    </tr>
+
+    <tr th:if="${post.get().getUpdated_by() != null }">
+        <td>수정자</td>
+        <td><span th:text="${post.get().getUpdated_by().getUserName()}"></span></td>
+    </tr>
+    <tr>
+        <td>작성일시</td>
+        <td><span th:text="${post.get().getCreated_at()}"></span></td>
+    </tr>
+    <tr th:if="${post.get().getUpdated_at() != null }">
+        <td>수정일시</td>
+        <td><span th:text="${post.get().getUpdated_at()}"></span></td>
+    </tr>
+</table>
+<br/>
+<button th:onclick="|location.href='@{update(id=${post.get().getId()})}'|">글 수정</button><br/>
+<button th:onclick="|location.href='@{delete(id=${post.get().getId()})}'|">글 삭제</button><br/><br/>
+
+<button th:onclick="|location.href='@{/community}'|">목록으로</button><br/><br/>
+<table>
+    <thead>
+        <th>
+            댓글
+        </th>
+    </thead>
+    <tbody>
+    <tr>
+        <td>
+                작성자
+        </td>
+        <td>
+            test1
+        </td>
+    </tr>
+    <tr>
+        <td>
+                내용
+        </td>
+        <td>
+            아무튼 댓글
+        </td>
+    </tr>
+    </tbody>
+
+</table>
+
+
 </body>
 </html>

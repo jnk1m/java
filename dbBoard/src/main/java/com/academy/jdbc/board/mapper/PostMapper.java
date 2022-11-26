@@ -1,18 +1,34 @@
 package com.academy.jdbc.board.mapper;
 
+import com.academy.jdbc.board.domain.Board;
+import com.academy.jdbc.board.domain.Comment;
 import com.academy.jdbc.board.domain.Post;
+import com.academy.jdbc.board.DTO.PostDTO;
+import org.apache.ibatis.annotations.Param;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
 
 public interface PostMapper {
-    Optional<Post> selectPost(long id);
+    @Transactional(readOnly = true)
+    Optional<PostDTO> selectPost(int id);
 
-    List<Post> selectPosts();
+    List<Board> getPostList();
 
-    void insertPost(Post post);
+//    List<Post> selectPosts();
 
-    void updateNameById(String name, long id);
+    List<Comment> selectComments(int postId);
 
-    void deleteById(long id);
+    @Transactional
+    int insertPost(@Param("title") String title, @Param("content") String content, @Param("userId") int userId);
+
+    @Transactional
+    void updatePost(@Param("title") String title,
+                    @Param("content") String content,
+                    @Param("updateUserId") int updateUserId,
+                    @Param("postId") int postId);
+
+    void setPostInvisible(@Param("postId") int postId);
 }

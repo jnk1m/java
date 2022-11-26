@@ -4,30 +4,89 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="com.academy.jdbc.board.mapper.PostMapper">
-    <select id="selectPost" resultType="com.academy.jdbc.board.domain.Post">
+    <resultMap id="postMap" type="com.academy.jdbc.board.DTO.PostDTO">
+        <id column="id" property="id" javaType="int"/>
+        <result column="title" property="title" javaType="String"/>
+        <result column="content" property="content" javaType="String"/>
+        <result column="created_at" property="created_at" javaType="Date"/>
+        <result column="updated_at" property="updated_at" javaType="Date"/>
+        <result column="visibility" property="visibility" javaType="int"/>
+        <association column="created_by" property="created_by" javaType="com.academy.jdbc.board.DTO.UserDTO"
+                     select="selectUser">
+        </association>
+        <association column="updated_by" property="updated_by" javaType="com.academy.jdbc.board.DTO.UserDTO"
+                     select="selectUser">
+        </association>
+
+    </resultMap>
+    <select id="selectPost" resultType="com.academy.jdbc.board.DTO.PostDTO" resultMap="postMap">
         select *
         from BoardPost
+        where id = #{id};
+    </select>
+
+    <select id="selectComments" resultType="com.academy.jdbc.board.domain.Comment">
+        SELECT id, content, post_id, writer, created_at, visibility
+        FROM BoardComment
+        WHERE id ={id};
+    </select>
+
+    <select id="selectUser" resultType="com.academy.jdbc.board.domain.User">
+        select *
+        from BoardUser
         where id = #{id}
     </select>
 
-    <select id="selectPosts" resultType="com.academy.jdbc.board.domain.Post">
-        SELECT id, title, writer, created_at,
-               (SELECT count(*) FROM BoardComment WHERE post_id =1)
-        FROM BoardPost
-        WHERE visibility=1
+    <!--    <select id="selectPosts" resultType="com.academy.jdbc.board.domain.Post">-->
+    <!--        SELECT id,-->
+    <!--               title,-->
+    <!--               content,-->
+    <!--               writer,-->
+    <!--               modifier,-->
+    <!--               created_at,-->
+    <!--               modified_at,-->
+    <!--               visibility-->
+    <!--        FROM BoardPost-->
+    <!--        WHERE visibility = 1-->
+    <!--    </select>-->
+
+    <select id="getPostList" resultType="com.academy.jdbc.board.domain.Board">
+        SELECT p.id, p.title, u.user_name as created_by, um.user_name as updated_by, p.created_at, count(c.id)
+        FROM BoardPost as p
+                 INNER JOIN BoardUser as u on u.id = p.created_by
+                 LEFT JOIN BoardUser as um on um.id = p.updated_by
+                 LEFT JOIN BoardComment as c on c.post_id = p.id
+        WHERE p.visibility = 1
+        GROUP BY p.id;
     </select>
+
+
+    <!--    <select id="getCommentCount" resultType="hashmap">-->
+    <!--        SELECT p.id, count(c.id)-->
+    <!--        FROM BoardPost as p-->
+    <!--                 INNER JOIN BoardComment as c on c.post_id = p.id-->
+    <!--        WHERE p.visibility = 1-->
+    <!--        GROUP BY c.post_id;-->
+    <!--    </select>-->
 
     <insert id="insertPost">
-        insert into BoardPost(id, name, created_at)
-        values (#{id}, '${name}', #{createdAt})
+        INSERT INTO BoardPost(title, content, created_by)
+        VALUES (#{title}, #{content}, #{userId})
     </insert>
 
-    <update id="updateNameById">
-        update BoardPost set name='${name}'
-        where id = #{id}
+    <update id="updatePost">
+        UPDATE BoardPost
+        SET title=#{title},
+            content=#{content},
+            updated_by=#{updateUserId},
+            updated_at=now()
+        WHERE id = #{postId};
+    </update>
+    
+    <update id="setPostInvisible">
+        UPDATE BoardPost
+        SET visibility = 0
+        WHERE id= #{postId};
     </update>
 
-    <delete id="deleteById">
-        delete from BoardPost where id=#{id}
-    </delete>
 </mapper>

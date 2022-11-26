@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Foo Fighters Forum</title>
+</head>
+<body>
+<h1>Foo Fighters Forum</h1>
+
+<button th:onclick="|location.href='@{/logout}'|">로그아웃</button>
+<button th:onclick="|location.href='@{/community/write}'|">글 작성</button><br/><br/>
+<table border="1">
+    <thead>
+    <tr>
+        <th>글번호</th>
+        <th>타이틀</th>
+        <th>작성자</th>
+        <th>수정자</th>
+        <th>작성일</th>
+        <th>댓글 개수</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${posts == null}">
+        <td colspan="5"> 게시글 없음</td>
+    </tr>
+    <tr th:each="post : ${posts}">
+
+        <td><span th:text="${post.getId()}"></span></td>
+        <td><a th:href="@{community/post(id=${post.getId()})}" th:text="${post.getTitle()}"></a></td>
+        <td><span th:text="${post.getCreated_by()}"></span></td>
+        <td>
+            <span th:text="${post.getUpdated_by()} ? ${post.getUpdated_by()} : '-'"></span>
+        </td>
+        <td><span th:text="${post.getCreated_at()}"></span></td>
+        <td><span th:text="${post.getCommentCount()}"></span></td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
