@@ -42,6 +42,12 @@
           AND visibility = 1;
     </select>
 
+    <select id="selectComment" resultType="com.academy.jdbc.board.DTO.CommentDTO" resultMap="commentMap">
+        SELECT *
+        FROM BoardComment
+        WHERE id = #{id};
+    </select>
+
     <select id="selectUser" resultType="com.academy.jdbc.board.domain.User">
         select *
         from BoardUser
@@ -97,6 +103,18 @@
         UPDATE BoardPost
         SET visibility = 1
         WHERE id = #{postId};
+    </update>
+
+    <update id="updateComment">
+        UPDATE BoardComment
+        SET content=#{content}
+        WHERE id = #{id};
+    </update>
+
+    <update id="setCommentInvisible">
+        UPDATE BoardComment
+        SET visibility=0
+        WHERE id = #{id};
     </update>
 
 </mapper>

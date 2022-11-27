@@ -59,7 +59,7 @@
         <tbody>
         <tr>
             <td>
-                <textarea name="content" rows="10" cols="30" maxlength="150"></textarea>
+                <textarea name="content" rows="30" cols="10" maxlength="150"></textarea>
             </td>
         </tr>
         </tbody>
@@ -71,16 +71,15 @@
 <table border="1">
     <thead>
     <tr>
-        <th>번호</th>
         <th>내용</th>
         <th>작성자</th>
         <th>작성일</th>
-        <th></th>
+        <th>관리</th>
     </tr>
     </thead>
     <tbody>
     <tr th:if="${comments.size() == 0}">
-        <td colspan="5"> 댓글 없음</td>
+        <td colspan="4"> 댓글 없음</td>
     </tr>
 
     <tr th:each="comment : ${comments}">

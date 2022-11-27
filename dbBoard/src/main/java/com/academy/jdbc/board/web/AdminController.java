@@ -1,7 +1,6 @@
 package com.academy.jdbc.board.web;
 
 import com.academy.jdbc.board.domain.Board;
-import com.academy.jdbc.board.domain.User;
 import com.academy.jdbc.board.exception.NoPermissionException;
 import com.academy.jdbc.board.service.PostService;
 import org.springframework.stereotype.Controller;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-import java.util.Optional;
 
 @Controller
 @RequestMapping("/admin")
@@ -28,13 +26,13 @@ public class AdminController {
                                    Model model) throws NoPermissionException {
 
         List<Board> deletedPosts = postService.getAllDeletedPosts();
-        model.addAttribute("deletedPosts",deletedPosts);
+        model.addAttribute("deletedPosts", deletedPosts);
 
         return "deletedPostList";
     }
 
     @GetMapping("/restorePost")
-    public String restorePost(@RequestParam("id") int postId){
+    public String restorePost(@RequestParam("id") int postId) {
         postService.setPostVisible(postId);
         return "redirect:/admin/deletedPosts";
     }

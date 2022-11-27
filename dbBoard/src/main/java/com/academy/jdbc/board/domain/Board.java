@@ -36,5 +36,15 @@ public class Board {
         this.commentCount = commentCount;
     }
 
-
+    @Override
+    public String toString() {
+        return "Board{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", created_by='" + created_by + '\'' +
+                ", updated_by='" + updated_by + '\'' +
+                ", created_at=" + created_at +
+                ", commentCount=" + commentCount +
+                '}';
+    }
 }

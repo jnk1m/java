@@ -25,19 +25,27 @@ public class DefaultPostService implements PostService {
     @Override
     public Optional<Post> getPost(int postId) {
         Optional<PostDTO> post = postMapper.selectPost(postId);
-        if (post.isPresent()) {
-            return Optional.of(new Post(post.get().getId(),
-                    post.get().getTitle(),
-                    post.get().getContent(),
-                    post.get().getCreated_by(),
-                    post.get().getUpdated_by(),
-                    post.get().getCreated_at(),
-                    post.get().getUpdated_at(),
-                    post.get().getVisibility() == 1));
-        }
-        return Optional.empty();
-
+        return post.map(postDTO -> new Post(postDTO.getId(),
+                postDTO.getTitle(),
+                postDTO.getContent(),
+                postDTO.getCreated_by(),
+                postDTO.getUpdated_by(),
+                postDTO.getCreated_at(),
+                postDTO.getUpdated_at(),
+                postDTO.getVisibility() == 1));
     }
+
+    @Override
+    public Optional<Comment> getComment(int id) {
+        Optional<CommentDTO> comment = postMapper.selectComment(id);
+        return comment.map(commentDTO -> new Comment(commentDTO.getId(),
+                commentDTO.getContent(),
+                commentDTO.getPost_id(),
+                commentDTO.getWriter(),
+                commentDTO.getCreated_at(),
+                commentDTO.getVisibility()));
+    }
+
 
     @Override
     public List<Board> getAllPosts() {
@@ -78,7 +86,7 @@ public class DefaultPostService implements PostService {
 
     @Override
     public void updatePost(String title, String content, int updateUserId, int postId) throws NoPermissionException {
-        if (!isAuthUser(updateUserId, postId)) {
+        if (!isAuthUserPost(updateUserId, postId)) {
             throw new NoPermissionException();
         }
 
@@ -87,7 +95,7 @@ public class DefaultPostService implements PostService {
 
     @Override
     public void setPostInvisible(int updateUserId, int postId) throws NoPermissionException {
-        if (!isAuthUser(updateUserId, postId)) {
+        if (!isAuthUserPost(updateUserId, postId)) {
             throw new NoPermissionException();
         }
         postMapper.setPostInvisible(postId);
@@ -98,7 +106,28 @@ public class DefaultPostService implements PostService {
         postMapper.setPostVisible(postId);
     }
 
-    private boolean isAuthUser(int updateUserId, int postId) {
+    @Override
+    public void updateComment(String content, int commentId, int writerId, int userId) throws NoPermissionException {
+        if(writerId != userId){
+            throw new NoPermissionException();
+        }
+
+        postMapper.updateComment(content, commentId);
+
+    }
+
+    @Override
+    public void setCommentInvisible(int userId, int commentId) throws NoPermissionException {
+
+        if (getComment(commentId).get().getWriter().getId() != userId) {
+            throw new NoPermissionException();
+        }
+
+        postMapper.setCommentInvisible(commentId);
+
+    }
+
+    private boolean isAuthUserPost(int updateUserId, int postId) {
 
         if (updateUserId == 1) {
             return true;
@@ -108,9 +137,8 @@ public class DefaultPostService implements PostService {
         if (post.get().getCreated_by().getId() == updateUserId) {
             return true;
         }
-
         return false;
-
-
     }
+
+
 }

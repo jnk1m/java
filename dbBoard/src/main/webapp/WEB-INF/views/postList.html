@@ -11,7 +11,7 @@
     <button th:onclick="|location.href='@{/login}'|">로그인</button>
 </span>
 <button th:onclick="|location.href='@{/logout}'|">로그아웃</button>
-<button th:onclick="|location.href='@{/community/write}'|">글 작성</button><br/><br/>
+<button th:onclick="|location.href='@{/community/write}'|">글 작성</button>
 
 <b th:if="${user != null}">
     <span th:if="${user.get().getRole() == 1}">
@@ -37,14 +37,14 @@
     </tr>
     <tr th:each="post : ${posts}">
 
-        <td><span th:text="${post.getId()}"></span></td>
-        <td><a th:href="@{post(id=${post.getId()})}" th:text="${post.getTitle()}"></a></td>
-        <td><span th:text="${post.getCreated_by()}"></span></td>
+        <td><span th:text="${post.id}"></span></td>
+        <td><a th:href="@{post(id=${post.id})}" th:text="${post.title}"></a></td>
+        <td><span th:text="${post.created_by}"></span></td>
         <td>
-            <span th:text="${post.getUpdated_by()} ? ${post.getUpdated_by()} : '-'"></span>
+            <span th:text="${post.updated_by} ? ${post.updated_by} : '-'"></span>
         </td>
-        <td><span th:text="${post.doFormatDate(post.getCreated_at)}"></span></td>
-        <td><span th:text="${post.getCommentCount()}"></span></td>
+        <td><span th:text="${post.doFormatDate(post.created_at)}"></span></td>
+        <td><span th:text="${post.commentCount}"></span></td>
     </tr>
     </tbody>
 </table>
