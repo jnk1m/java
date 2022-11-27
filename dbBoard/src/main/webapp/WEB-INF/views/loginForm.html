@@ -5,11 +5,22 @@
     <title>로그인</title>
 </head>
 <body>
+<h1>Foo Fighters Forum</h1>
 <h2>로그인</h2>
+
 <form method="post" action="/login">
-    사용자 이름: <input type="text" name="username" required><br/>
-    비밀번호: <input type="password" name="password" required><br/>
-    <input type="submit" value="Login">
+    <table border="1">
+        <tr>
+            <td>사용자 이름</td>
+            <td><input type="text" name="username" required></td>
+        </tr>
+        <tr>
+            <td>비밀번호</td>
+            <td><input type="password" name="password" required></td>
+        </tr>
+    </table>
+    <br/>
+    <input type="submit" value="로그인">
 </form>
 
 </body>

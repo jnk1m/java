@@ -1,5 +1,6 @@
 package com.academy.jdbc.board.config;
 
+import com.academy.jdbc.board.interceptor.AdminCheckInterceptor;
 import com.academy.jdbc.board.interceptor.LoginCheckInterceptor;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
@@ -11,20 +12,22 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.AntPathMatcher;
 import org.springframework.web.servlet.ViewResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ViewResolverRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 import org.thymeleaf.spring5.view.ThymeleafViewResolver;
 import org.thymeleaf.templatemode.TemplateMode;
 
+import java.util.List;
+
 @EnableWebMvc
 @Configuration
-@ComponentScan(basePackages = "com.academy.jdbc.board", useDefaultFilters = false, includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION,classes ={Controller.class}))
+@ComponentScan(basePackages = "com.academy.jdbc.board", useDefaultFilters = false, includeFilters = @ComponentScan.Filter(type = FilterType.ANNOTATION, classes = {Controller.class}))
 public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, MessageSourceAware {
     private ApplicationContext applicationContext;
     private MessageSource messageSource;
@@ -47,11 +50,13 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new LoginCheckInterceptor())
-                .excludePathPatterns("/login","/board","/board");
+                .excludePathPatterns("/login");
+        registry.addInterceptor(new AdminCheckInterceptor())
+                .addPathPatterns("/admin/**");
     }
 
     @Bean
-    public ViewResolver thymeleafViewResolver(){
+    public ViewResolver thymeleafViewResolver() {
         ThymeleafViewResolver thymeleafViewResolver = new ThymeleafViewResolver();
         thymeleafViewResolver.setTemplateEngine(templateEngine());
         thymeleafViewResolver.setCharacterEncoding("UTF-8");
@@ -59,14 +64,14 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
         return thymeleafViewResolver;
     }
 
-    public SpringTemplateEngine templateEngine(){
+    public SpringTemplateEngine templateEngine() {
         SpringTemplateEngine templateEngine = new SpringTemplateEngine();
         templateEngine.setTemplateResolver(templateResolver());
         templateEngine.setTemplateEngineMessageSource(messageSource);
         return templateEngine;
     }
 
-    public SpringResourceTemplateResolver templateResolver(){
+    public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(applicationContext);
         templateResolver.setCharacterEncoding("UTF-8");
@@ -74,13 +79,6 @@ public class WebConfig implements WebMvcConfigurer, ApplicationContextAware, Mes
         templateResolver.setSuffix(".html");
         templateResolver.setTemplateMode(TemplateMode.HTML);
         return templateResolver;
-    }
-
-    @Bean
-    RequestMappingHandlerAdapter requestMappingHandlerAdapter(){
-        RequestMappingHandlerAdapter requestMappingHandlerAdapter = new RequestMappingHandlerAdapter();
-        requestMappingHandlerAdapter.setIgnoreDefaultModelOnRedirect(true);
-        return requestMappingHandlerAdapter;
     }
 
 }

@@ -3,6 +3,7 @@ package com.academy.jdbc.board.domain;
 import lombok.Getter;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 @Getter
@@ -49,4 +50,6 @@ public class Post {
                 ", visibility=" + visibility +
                 '}';
     }
+
+
 }

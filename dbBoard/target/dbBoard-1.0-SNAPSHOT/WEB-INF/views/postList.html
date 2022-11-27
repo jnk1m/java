@@ -7,8 +7,19 @@
 <body>
 <h1>Foo Fighters Forum</h1>
 
+<span th:if="${user == null}">
+    <button th:onclick="|location.href='@{/login}'|">로그인</button>
+</span>
 <button th:onclick="|location.href='@{/logout}'|">로그아웃</button>
 <button th:onclick="|location.href='@{/community/write}'|">글 작성</button><br/><br/>
+
+<b th:if="${user != null}">
+    <span th:if="${user.get().getRole() == 1}">
+    <button th:onclick="|location.href='@{/admin/deletedPosts}'|">삭제된 게시글 관리</button>
+</span>
+</b><br/><br/>
+
+글 개수: <span th:text="${posts.size()}"></span>
 <table border="1">
     <thead>
     <tr>
@@ -17,7 +28,7 @@
         <th>작성자</th>
         <th>수정자</th>
         <th>작성일</th>
-        <th>댓글 개수</th>
+        <th>댓글</th>
     </tr>
     </thead>
     <tbody>
@@ -27,12 +38,12 @@
     <tr th:each="post : ${posts}">
 
         <td><span th:text="${post.getId()}"></span></td>
-        <td><a th:href="@{community/post(id=${post.getId()})}" th:text="${post.getTitle()}"></a></td>
+        <td><a th:href="@{post(id=${post.getId()})}" th:text="${post.getTitle()}"></a></td>
         <td><span th:text="${post.getCreated_by()}"></span></td>
         <td>
             <span th:text="${post.getUpdated_by()} ? ${post.getUpdated_by()} : '-'"></span>
         </td>
-        <td><span th:text="${post.getCreated_at()}"></span></td>
+        <td><span th:text="${post.doFormatDate(post.getCreated_at)}"></span></td>
         <td><span th:text="${post.getCommentCount()}"></span></td>
     </tr>
     </tbody>

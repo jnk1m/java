@@ -1,13 +1,16 @@
 package com.academy.jdbc.board.service.impl;
 
+import com.academy.jdbc.board.DTO.CommentDTO;
 import com.academy.jdbc.board.DTO.PostDTO;
 import com.academy.jdbc.board.domain.Board;
 import com.academy.jdbc.board.domain.Comment;
 import com.academy.jdbc.board.domain.Post;
+import com.academy.jdbc.board.exception.NoPermissionException;
 import com.academy.jdbc.board.mapper.PostMapper;
 import com.academy.jdbc.board.service.PostService;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -42,30 +45,60 @@ public class DefaultPostService implements PostService {
     }
 
     @Override
-    public List<Comment> getAllComments(int postId) {
-        return postMapper.selectComments(postId);
+    public List<Board> getAllDeletedPosts() {
+        return postMapper.getDeletedPostList();
     }
 
     @Override
-    public int writePost(String title, String content, int userId) {
-        return postMapper.insertPost(title, content, userId);
+    public List<Optional<Comment>> getAllComments(int postId) {
+        List<CommentDTO> commentDTOS = postMapper.selectComments(postId);
+        List<Optional<Comment>> commentList = new ArrayList<>();
+
+        for (CommentDTO commentDTO : commentDTOS) {
+            commentList.add(Optional.of(new Comment(commentDTO.getId(),
+                    commentDTO.getContent(),
+                    commentDTO.getPost_id(),
+                    commentDTO.getWriter(),
+                    commentDTO.getCreated_at(),
+                    commentDTO.getVisibility())));
+        }
+
+        return commentList;
     }
 
     @Override
-    public void updatePost(String title, String content, int updateUserId, int postId) {
-        if (!checkUserAuth(updateUserId, postId)) {
-            throw new RuntimeException("권한이 없습니다.");
+    public void writePost(String title, String content, int userId) {
+        postMapper.insertPost(title, content, userId);
+    }
+
+    @Override
+    public void writeComment(String content, int postId, int userId) {
+        postMapper.insertComment(content, postId, userId);
+    }
+
+    @Override
+    public void updatePost(String title, String content, int updateUserId, int postId) throws NoPermissionException {
+        if (!isAuthUser(updateUserId, postId)) {
+            throw new NoPermissionException();
         }
 
         postMapper.updatePost(title, content, updateUserId, postId);
     }
 
     @Override
-    public void setPostInvisible(int postId) {
+    public void setPostInvisible(int updateUserId, int postId) throws NoPermissionException {
+        if (!isAuthUser(updateUserId, postId)) {
+            throw new NoPermissionException();
+        }
         postMapper.setPostInvisible(postId);
     }
 
-    private boolean checkUserAuth(int updateUserId, int postId) {
+    @Override
+    public void setPostVisible(int postId) {
+        postMapper.setPostVisible(postId);
+    }
+
+    private boolean isAuthUser(int updateUserId, int postId) {
 
         if (updateUserId == 1) {
             return true;

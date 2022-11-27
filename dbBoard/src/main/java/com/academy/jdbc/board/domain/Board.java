@@ -3,6 +3,8 @@ package com.academy.jdbc.board.domain;
 import lombok.Getter;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 @Getter
 public class Board {
@@ -12,6 +14,10 @@ public class Board {
     private String updated_by;
     private final Timestamp created_at;
     private final long commentCount;
+
+    public static String doFormatDate(Date date){
+        return new SimpleDateFormat("yyyy/MM/dd HH:mm").format(date);
+    }
 
     public Board(int id, String title, String created_by, Timestamp created_at, long commentCount) {
         this.id = id;

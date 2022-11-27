@@ -38,37 +38,64 @@
     </tr>
 </table>
 <br/>
-<button th:onclick="|location.href='@{update(id=${post.get().getId()})}'|">글 수정</button><br/>
-<button th:onclick="|location.href='@{delete(id=${post.get().getId()})}'|">글 삭제</button><br/><br/>
 
-<button th:onclick="|location.href='@{/community}'|">목록으로</button><br/><br/>
-<table>
+<button th:onclick="|location.href='@{/community/list}'|">목록으로</button>
+<button th:onclick="|location.href='@{update(id=${post.get().getId()})}'|">글 수정</button>
+<button th:onclick="|location.href='@{delete(id=${post.get().getId()})}'|">글 삭제</button>
+<br/><br/>
+
+
+<h3>댓글</h3>
+
+<form action="/community/writeComment" method="post">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>
+                댓글 작성
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <textarea name="content" rows="10" cols="30" maxlength="150"></textarea>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="hidden" name="postId" th:value="${post.get().getId()}">
+    <input type="submit" value="저장">
+</form>
+<br/>
+<table border="1">
     <thead>
-        <th>
-            댓글
-        </th>
+    <tr>
+        <th>번호</th>
+        <th>내용</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th></th>
+    </tr>
     </thead>
     <tbody>
-    <tr>
+    <tr th:if="${comments.size() == 0}">
+        <td colspan="5"> 댓글 없음</td>
+    </tr>
+
+    <tr th:each="comment : ${comments}">
+        <td><span th:text="${comment.get().getContent()}"></span></td>
+        <td><span th:text="${comment.get().getWriter().getUserName()}"></span></td>
+        <td><span th:text="${comment.get().getCreated_at()}"></span></td>
         <td>
-                작성자
-        </td>
-        <td>
-            test1
+            <button th:onclick="|location.href='@{updateComment(id=${comment.get().getId()})}'|">수정</button>
+            <button th:onclick="|location.href='@{deleteComment(id=${comment.get().getId()})}'|">삭제</button>
         </td>
     </tr>
-    <tr>
-        <td>
-                내용
-        </td>
-        <td>
-            아무튼 댓글
-        </td>
-    </tr>
+
     </tbody>
 
 </table>
-
 
 </body>
 </html>

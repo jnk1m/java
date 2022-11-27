@@ -25,10 +25,21 @@
         where id = #{id};
     </select>
 
-    <select id="selectComments" resultType="com.academy.jdbc.board.domain.Comment">
+    <resultMap id="commentMap" type="com.academy.jdbc.board.DTO.CommentDTO">
+        <result column="id" property="id" javaType="int"/>
+        <result column="content" property="content" javaType="String"/>
+        <result column="post_id" property="post_id" javaType="int"/>
+        <result column="created_at" property="created_at" javaType="Date"/>
+        <result column="visibility" property="visibility" javaType="int"/>
+        <association column="writer" property="writer" javaType="com.academy.jdbc.board.DTO.UserDTO"
+                     select="selectUser">
+        </association>
+    </resultMap>
+    <select id="selectComments" resultType="com.academy.jdbc.board.DTO.CommentDTO" resultMap="commentMap">
         SELECT id, content, post_id, writer, created_at, visibility
         FROM BoardComment
-        WHERE id ={id};
+        WHERE post_id = #{postId}
+          AND visibility = 1;
     </select>
 
     <select id="selectUser" resultType="com.academy.jdbc.board.domain.User">
@@ -37,41 +48,34 @@
         where id = #{id}
     </select>
 
-    <!--    <select id="selectPosts" resultType="com.academy.jdbc.board.domain.Post">-->
-    <!--        SELECT id,-->
-    <!--               title,-->
-    <!--               content,-->
-    <!--               writer,-->
-    <!--               modifier,-->
-    <!--               created_at,-->
-    <!--               modified_at,-->
-    <!--               visibility-->
-    <!--        FROM BoardPost-->
-    <!--        WHERE visibility = 1-->
-    <!--    </select>-->
-
     <select id="getPostList" resultType="com.academy.jdbc.board.domain.Board">
         SELECT p.id, p.title, u.user_name as created_by, um.user_name as updated_by, p.created_at, count(c.id)
         FROM BoardPost as p
                  INNER JOIN BoardUser as u on u.id = p.created_by
                  LEFT JOIN BoardUser as um on um.id = p.updated_by
-                 LEFT JOIN BoardComment as c on c.post_id = p.id
+                 LEFT JOIN BoardComment as c on c.post_id = p.id AND c.visibility = 1
         WHERE p.visibility = 1
         GROUP BY p.id;
     </select>
 
-
-    <!--    <select id="getCommentCount" resultType="hashmap">-->
-    <!--        SELECT p.id, count(c.id)-->
-    <!--        FROM BoardPost as p-->
-    <!--                 INNER JOIN BoardComment as c on c.post_id = p.id-->
-    <!--        WHERE p.visibility = 1-->
-    <!--        GROUP BY c.post_id;-->
-    <!--    </select>-->
+    <select id="getDeletedPostList" resultType="com.academy.jdbc.board.domain.Board">
+        SELECT p.id, p.title, u.user_name as created_by, um.user_name as updated_by, p.created_at, count(c.id)
+        FROM BoardPost as p
+                 INNER JOIN BoardUser as u on u.id = p.created_by
+                 LEFT JOIN BoardUser as um on um.id = p.updated_by
+                 LEFT JOIN BoardComment as c on c.post_id = p.id AND c.visibility = 1
+        WHERE p.visibility = 0
+        GROUP BY p.id;
+    </select>
 
     <insert id="insertPost">
         INSERT INTO BoardPost(title, content, created_by)
         VALUES (#{title}, #{content}, #{userId})
+    </insert>
+
+    <insert id="insertComment">
+        INSERT INTO BoardComment (content, post_id, writer)
+        VALUES (#{content}, #{postId}, #{writer});
     </insert>
 
     <update id="updatePost">
@@ -82,11 +86,17 @@
             updated_at=now()
         WHERE id = #{postId};
     </update>
-    
+
     <update id="setPostInvisible">
         UPDATE BoardPost
         SET visibility = 0
-        WHERE id= #{postId};
+        WHERE id = #{postId};
+    </update>
+
+    <update id="setPostVisible">
+        UPDATE BoardPost
+        SET visibility = 1
+        WHERE id = #{postId};
     </update>
 
 </mapper>

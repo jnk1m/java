@@ -3,6 +3,7 @@ package com.academy.jdbc.board.service;
 import com.academy.jdbc.board.domain.Board;
 import com.academy.jdbc.board.domain.Comment;
 import com.academy.jdbc.board.domain.Post;
+import com.academy.jdbc.board.exception.NoPermissionException;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.HashMap;
@@ -12,17 +13,19 @@ import java.util.Optional;
 public interface PostService {
     Optional<Post> getPost(int postId);
 
-    List<Comment> getAllComments(int postId);
+    List<Optional<Comment>> getAllComments(int postId);
 
     List<Board> getAllPosts();
+    List<Board> getAllDeletedPosts();
 
-    int writePost(String title, String content, int userId);
+    void writePost(String title, String content, int userId);
+    void writeComment(String content, int postId, int userId);
 
-    void updatePost(String title, String content, int updateUserId, int postId);
+    void updatePost(String title, String content, int updateUserId, int postId) throws NoPermissionException;
 
-    void setPostInvisible(@Param("postId") int postId);
+    void setPostInvisible(int updateUserId, int postId) throws NoPermissionException;
+    void setPostVisible(int postId);
 
 
 
-//    List<HashMap<String,Object>> getCommentCount();
 }
