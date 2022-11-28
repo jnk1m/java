@@ -25,10 +25,10 @@
     <tr>
         <th>글번호</th>
         <th>타이틀</th>
+        <th>댓글</th>
         <th>작성자</th>
         <th>수정자</th>
         <th>작성일</th>
-        <th>댓글</th>
     </tr>
     </thead>
     <tbody>
@@ -39,12 +39,12 @@
 
         <td><span th:text="${post.id}"></span></td>
         <td><a th:href="@{post(id=${post.id})}" th:text="${post.title}"></a></td>
+        <td><span th:text="${post.commentCount}"></span></td>
         <td><span th:text="${post.created_by}"></span></td>
         <td>
             <span th:text="${post.updated_by} ? ${post.updated_by} : '-'"></span>
         </td>
         <td><span th:text="${post.doFormatDate(post.created_at)}"></span></td>
-        <td><span th:text="${post.commentCount}"></span></td>
     </tr>
     </tbody>
 </table>

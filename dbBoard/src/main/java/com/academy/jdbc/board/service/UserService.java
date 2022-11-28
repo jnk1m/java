@@ -12,8 +12,6 @@ public interface UserService {
 
     List<User> getUserList();
 
-    Map<Integer, User> getUserMap();
-
     Optional<User> login(String username, String password) throws LoginFailException;
 
 

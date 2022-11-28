@@ -113,7 +113,7 @@
 
     <update id="setCommentInvisible">
         UPDATE BoardComment
-        SET visibility=0
+        SET visibility = 0
         WHERE id = #{id};
     </update>
 

@@ -21,12 +21,13 @@ public class LoginController {
     public LoginController(UserService userService) {
         this.userService = userService;
     }
-
+    /*로그인 폼 불러오기*/
     @GetMapping("/login")
     public String getLoginForm() {
         return "loginForm";
     }
 
+    /*로그인하기*/
     @PostMapping("/login")
     public String doLogin(@RequestParam("username") String username,
                           @RequestParam("password") String password,
@@ -40,6 +41,7 @@ public class LoginController {
         return "redirect:/community/list";
     }
 
+    /*로그아웃하기*/
     @GetMapping("/logout")
     public String doLogout(HttpServletRequest request) {
         request.getSession(false).removeAttribute("LoginUser");

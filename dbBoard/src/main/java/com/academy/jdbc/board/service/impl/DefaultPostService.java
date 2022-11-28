@@ -108,7 +108,7 @@ public class DefaultPostService implements PostService {
 
     @Override
     public void updateComment(String content, int commentId, int writerId, int userId) throws NoPermissionException {
-        if(writerId != userId){
+        if (writerId != userId) {
             throw new NoPermissionException();
         }
 

@@ -1,6 +1,5 @@
 package com.academy.jdbc.board.service;
 
-import com.academy.jdbc.board.DTO.CommentDTO;
 import com.academy.jdbc.board.domain.Board;
 import com.academy.jdbc.board.domain.Comment;
 import com.academy.jdbc.board.domain.Post;

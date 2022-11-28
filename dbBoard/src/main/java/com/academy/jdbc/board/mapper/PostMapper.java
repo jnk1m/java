@@ -3,7 +3,6 @@ package com.academy.jdbc.board.mapper;
 import com.academy.jdbc.board.DTO.CommentDTO;
 import com.academy.jdbc.board.DTO.PostDTO;
 import com.academy.jdbc.board.domain.Board;
-import com.academy.jdbc.board.domain.Comment;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -13,10 +12,12 @@ import java.util.Optional;
 public interface PostMapper {
     @Transactional(readOnly = true)
     Optional<PostDTO> selectPost(int id);
+
     @Transactional(readOnly = true)
     Optional<CommentDTO> selectComment(int id);
 
     List<Board> getPostList();
+
     List<Board> getDeletedPostList();
 
     List<CommentDTO> selectComments(int postId);
@@ -39,7 +40,9 @@ public interface PostMapper {
     @Transactional
     void setPostVisible(@Param("postId") int postId);
 
+    @Transactional
     void updateComment(@Param("content") String content, @Param("id") int commentId);
 
+    @Transactional
     void setCommentInvisible(int commentId);
 }

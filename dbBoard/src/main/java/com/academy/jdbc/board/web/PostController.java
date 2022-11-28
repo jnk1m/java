@@ -24,6 +24,7 @@ public class PostController {
         this.postService = postService;
     }
 
+    /*게시글 목록 불러오기*/
     @GetMapping("/list")
     public String getPostList(Model model, HttpServletRequest request) {
         List<Board> allPosts = postService.getAllPosts();
@@ -42,6 +43,7 @@ public class PostController {
         return "postList";
     }
 
+    /*게시글 및 댓글 상세 보기*/
     @GetMapping("/post")
     public String getPostDetailWithComments(@RequestParam("id") int postId, Model model) {
 
@@ -53,11 +55,13 @@ public class PostController {
         return "postDetail";
     }
 
+    /*게시글 작성 폼 불러오기*/
     @GetMapping("/write")
     public String getWriteForm() {
         return "writeForm";
     }
 
+    /*게시글 작성하기*/
     @PostMapping("/write")
     public String doWritePost(@Valid @ModelAttribute WriteRequest writeRequest,
                               BindingResult bindingResult,
@@ -73,6 +77,7 @@ public class PostController {
         return "redirect:/community/list";
     }
 
+    /*게시글 수정 폼 불러오기*/
     @GetMapping("/update")
     public String getUpdateForm(@RequestParam("id") int postId,
                                 HttpServletRequest request,
@@ -81,7 +86,7 @@ public class PostController {
 
         Optional<Post> post = postService.getPost(postId);
 
-        if (post.get().getCreated_by().getId() != userId) {
+        if (post.get().getCreated_by().getId() != userId && userId != 1) {
             throw new NoPermissionException();
         }
 
@@ -89,6 +94,7 @@ public class PostController {
         return "updateForm";
     }
 
+    /*게시글 수정하기*/
     @PostMapping("/update")
     public String doUpdatePost(@Valid @ModelAttribute WriteRequest writeRequest,
                                BindingResult bindingResult,
@@ -105,6 +111,7 @@ public class PostController {
         return "redirect:/community/post?id=" + postId;
     }
 
+    /*게시글 삭제하기*/
     @GetMapping("/delete")
     public String deletePost(@RequestParam("id") int postId,
                              HttpServletRequest request) throws NoPermissionException {
@@ -114,6 +121,7 @@ public class PostController {
         return "redirect:/community/list";
     }
 
+    /*댓글 작성하기*/
     @PostMapping("/writeComment")
     public String writeComment(@Valid @ModelAttribute CommentRequest commentRequest,
                                BindingResult bindingResult,
@@ -130,6 +138,7 @@ public class PostController {
         return "redirect:/community/post?id=" + postId;
     }
 
+    /*댓글 수정 폼 불러오기*/
     @GetMapping("/updateComment")
     public String getUpdateCommentForm(@RequestParam("id") int id,
                                        HttpServletRequest request,
@@ -146,6 +155,7 @@ public class PostController {
         return "updateCommentForm";
     }
 
+    /*댓글 수정하기*/
     @PostMapping("/updateComment")
     public String doUpdateComment(@Valid @ModelAttribute CommentRequest commentRequest,
                                   BindingResult bindingResult,
@@ -165,15 +175,18 @@ public class PostController {
 
 
     }
+
+    /*댓글 삭제하기*/
     @GetMapping("/deleteComment")
     public String deleteComment(@RequestParam("id") int commentId,
-                             HttpServletRequest request) throws NoPermissionException {
+                                HttpServletRequest request) throws NoPermissionException {
         int userId = getLoginUserId(request);
 
         postService.setCommentInvisible(userId, commentId);
         return "redirect:/community/post?id=" + postService.getComment(commentId).get().getPost_id();
     }
 
+    /*세션에서 로그인한 회원 아이디 가져오기*/
     private int getLoginUserId(HttpServletRequest request) {
         Optional<User> user = (Optional<User>) request.getSession().getAttribute("LoginUser");
         return user.get().getId();

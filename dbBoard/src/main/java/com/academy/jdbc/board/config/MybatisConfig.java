@@ -14,10 +14,10 @@ import javax.sql.DataSource;
 import java.io.IOException;
 
 @Configuration
-@MapperScan(basePackages = "**.mapper.**",  sqlSessionFactoryRef = "sqlSessionFactoryBean")
+@MapperScan(basePackages = "**.mapper.**", sqlSessionFactoryRef = "sqlSessionFactoryBean")
 public class MybatisConfig {
     @Bean
-    public DataSource dataSource(){
+    public DataSource dataSource() {
         BasicDataSource basicDataSource = new BasicDataSource();
         basicDataSource.setDriverClassName(com.mysql.cj.jdbc.Driver.class.getName());
         basicDataSource.setUrl("jdbc:mysql://133.186.151.141/nhn_academy_12");
@@ -29,7 +29,7 @@ public class MybatisConfig {
     }
 
     @Bean
-    public DataSource logDataSource(){
+    public DataSource logDataSource() {
         return new P6DataSource(dataSource());
     }
 

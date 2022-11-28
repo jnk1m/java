@@ -1,7 +1,6 @@
 package com.academy.jdbc.board.DTO;
 
 import com.academy.jdbc.board.domain.User;
-import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 

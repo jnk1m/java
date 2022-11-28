@@ -15,7 +15,7 @@ public class Board {
     private final Timestamp created_at;
     private final long commentCount;
 
-    public static String doFormatDate(Date date){
+    public static String doFormatDate(Date date) {
         return new SimpleDateFormat("yyyy/MM/dd HH:mm").format(date);
     }
 
