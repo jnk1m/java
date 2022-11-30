@@ -8,15 +8,20 @@ import java.time.LocalDateTime;
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @Column(name = "id")
+    private int commentId;
 
     private String content;
 
-    @Column(name = "post_id")
-    private int postId;
+//    @Column(name = "post_id")
+    @ManyToOne
+    @JoinColumn(name = "post_id")
+    private Post postId;
 
-    @Column(name = "writer")
-    private int createdBy;
+//    @Column(name = "writer")
+    @ManyToOne
+    @JoinColumn(name = "writer")
+    private User createdBy;
 
     @Column(name = "created_at")
     private LocalDateTime createdAt;

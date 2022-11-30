@@ -1,0 +1,10 @@
+/Users/jieunkim/Documents/GitHub/java/JpaBoard/src/main/java/com/academy/jdbc/repository/CommentRepository.java
+/Users/jieunkim/Documents/GitHub/java/JpaBoard/src/main/java/com/academy/jdbc/entity/Like.java
+/Users/jieunkim/Documents/GitHub/java/JpaBoard/src/main/java/com/academy/jdbc/config/JpaConfig.java
+/Users/jieunkim/Documents/GitHub/java/JpaBoard/src/main/java/com/academy/jdbc/entity/User.java
+/Users/jieunkim/Documents/GitHub/java/JpaBoard/src/main/java/com/academy/jdbc/config/RootConfig.java
+/Users/jieunkim/Documents/GitHub/java/JpaBoard/src/main/java/com/academy/jdbc/config/WebConfig.java
+/Users/jieunkim/Documents/GitHub/java/JpaBoard/src/main/java/com/academy/jdbc/entity/Post.java
+/Users/jieunkim/Documents/GitHub/java/JpaBoard/src/main/java/com/academy/jdbc/repository/RepositoryBase.java
+/Users/jieunkim/Documents/GitHub/java/JpaBoard/src/main/java/com/academy/jdbc/Base.java
+/Users/jieunkim/Documents/GitHub/java/JpaBoard/src/main/java/com/academy/jdbc/entity/Comment.java

@@ -49,9 +49,11 @@ public class PostController {
 
         Optional<Post> post = postService.getPost(postId);
         List<Optional<Comment>> comments = postService.getAllComments(postId);
+        int likeCount = getLikeCount(postId);
 
         model.addAttribute("post", post);
         model.addAttribute("comments", comments);
+        model.addAttribute("likeCount",likeCount);
         return "postDetail";
     }
 
@@ -190,6 +192,10 @@ public class PostController {
     private int getLoginUserId(HttpServletRequest request) {
         Optional<User> user = (Optional<User>) request.getSession().getAttribute("LoginUser");
         return user.get().getId();
+    }
+
+    private int getLikeCount(int postId){
+        return postService.getLikeCount(postId);
     }
 
 

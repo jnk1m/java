@@ -45,4 +45,7 @@ public interface PostMapper {
 
     @Transactional
     void setCommentInvisible(int commentId);
+
+    @Transactional
+    int selectLikeCount(int id);
 }

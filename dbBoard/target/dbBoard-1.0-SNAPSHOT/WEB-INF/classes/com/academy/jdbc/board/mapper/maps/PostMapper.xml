@@ -117,4 +117,11 @@
         WHERE id = #{id};
     </update>
 
+    <select id="selectLikeCount" resultType="int">
+        SELECT count(*)
+        FROM BoardLike
+        WHERE post_id = 3
+          AND liked = 1;
+    </select>
+
 </mapper>

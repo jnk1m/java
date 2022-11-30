@@ -32,4 +32,6 @@ public interface PostService {
     void updateComment(String content, int commentId, int writerId, int userId) throws NoPermissionException;
 
     void setCommentInvisible(int userId, int commentId) throws NoPermissionException;
+
+    int getLikeCount(int postId);
 }

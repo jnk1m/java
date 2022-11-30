@@ -127,6 +127,11 @@ public class DefaultPostService implements PostService {
 
     }
 
+    @Override
+    public int getLikeCount(int postId) {
+        return postMapper.selectLikeCount(postId);
+    }
+
     private boolean isAuthUserPost(int updateUserId, int postId) {
 
         if (updateUserId == 1) {
@@ -139,6 +144,8 @@ public class DefaultPostService implements PostService {
         }
         return false;
     }
+
+
 
 
 }

@@ -39,6 +39,10 @@
 </table>
 <br/>
 
+좋아요 개수: <span th:text="${likeCount}"></span><br/><br/>
+<button th:onclick="|location.href='@{/community/like}'|">좋아요</button>
+
+
 <button th:onclick="|location.href='@{/community/list}'|">목록으로</button>
 <button th:onclick="|location.href='@{update(id=${post.get().getId()})}'|">글 수정</button>
 <button th:onclick="|location.href='@{delete(id=${post.get().getId()})}'|">글 삭제</button>
