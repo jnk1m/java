@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세보기</title>
+</head>
+<body>
+<h2>게시글 상세보기</h2>
+<table border="1">
+    <tr>
+        <td>번호</td>
+        <td><span th:text="${post.get().getId()}"></span></td>
+    </tr>
+    <tr>
+        <td>제목</td>
+        <td><span th:text="${post.get().getTitle()}"></span></td>
+    </tr>
+    <tr>
+        <td>내용</td>
+        <td><span th:text="${post.get().getContent()}"></span></td>
+    </tr>
+    <tr>
+        <td>작성자</td>
+        <td><span th:text="${post.get().getCreated_by().getUserName()}"></span></td>
+    </tr>
+
+    <tr th:if="${post.get().getUpdated_by() != null }">
+        <td>수정자</td>
+        <td><span th:text="${post.get().getUpdated_by().getUserName()}"></span></td>
+    </tr>
+    <tr>
+        <td>작성일시</td>
+        <td><span th:text="${post.get().getCreated_at()}"></span></td>
+    </tr>
+    <tr th:if="${post.get().getUpdated_at() != null }">
+        <td>수정일시</td>
+        <td><span th:text="${post.get().getUpdated_at()}"></span></td>
+    </tr>
+</table>
+<br/>
+
+좋아요 개수: <span th:text="${likeCount}"></span><br/><br/>
+<button th:onclick="|location.href='@{/community/like}'|">좋아요</button>
+
+
+<button th:onclick="|location.href='@{/community/list}'|">목록으로</button>
+<button th:onclick="|location.href='@{update(id=${post.get().getId()})}'|">글 수정</button>
+<button th:onclick="|location.href='@{delete(id=${post.get().getId()})}'|">글 삭제</button>
+<br/><br/>
+
+
+<h3>댓글</h3>
+
+<form action="/community/writeComment" method="post">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>
+                댓글 작성
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <textarea name="content" rows="8" cols="50" maxlength="150"></textarea>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="hidden" name="postId" th:value="${post.get().getId()}">
+    <input type="submit" value="저장">
+</form>
+<br/>
+<table border="1">
+    <thead>
+    <tr>
+        <th>내용</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>관리</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${comments.size() == 0}">
+        <td colspan="4"> 댓글 없음</td>
+    </tr>
+
+    <tr th:each="comment : ${comments}">
+        <td><span th:text="${comment.get().getContent()}"></span></td>
+        <td><span th:text="${comment.get().getWriter().getUserName()}"></span></td>
+        <td><span th:text="${comment.get().getCreated_at()}"></span></td>
+        <td>
+            <button th:onclick="|location.href='@{updateComment(id=${comment.get().getId()})}'|">수정</button>
+            <button th:onclick="|location.href='@{deleteComment(id=${comment.get().getId()})}'|">삭제</button>
+        </td>
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>글 작성하기</title>
+</head>
+<body>
+<h2>글 작성하기</h2>
+<form method="post" action="/community/write">
+    제목 : <input type="text" name="title" minlength="2" maxlength="50"/><br/>
+    내용 : <br/><textarea name="content" rows="10" cols="40" minlength="2" maxlength="300"></textarea><br/>
+    <input type="submit" value="저장"/>
+</form>
+<button th:onclick="|location.href='@{/community}'|">취소</button>
+
+</body>
+</html>

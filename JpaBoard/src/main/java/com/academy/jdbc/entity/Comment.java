@@ -1,10 +1,17 @@
 package com.academy.jdbc.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "BoardComment")
+@Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,12 +20,10 @@ public class Comment {
 
     private String content;
 
-//    @Column(name = "post_id")
     @ManyToOne
     @JoinColumn(name = "post_id")
     private Post postId;
 
-//    @Column(name = "writer")
     @ManyToOne
     @JoinColumn(name = "writer")
     private User createdBy;

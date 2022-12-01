@@ -1,10 +1,14 @@
 package com.academy.jdbc.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "BoardUserRole")
+@AllArgsConstructor
+@NoArgsConstructor
 public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -13,6 +17,4 @@ public class Role {
 
     private String role;
 
-    @OneToMany(mappedBy = "userId", targetEntity = User.class)
-    private List<User> user;
 }

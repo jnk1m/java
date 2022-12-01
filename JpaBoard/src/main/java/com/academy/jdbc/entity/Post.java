@@ -1,11 +1,14 @@
 package com.academy.jdbc.entity;
 
+import lombok.Getter;
+
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
 @Table(name = "BoardPost")
+@Getter
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,12 +19,10 @@ public class Post {
 
     private String content;
 
-//    @Column(name = "created_by")
     @ManyToOne
     @JoinColumn(name = "created_by")
     private User createdBy;
 
-//    @Column(name = "updated_by")
     @ManyToOne
     @JoinColumn(name = "updated_by")
     private User updatedBy;

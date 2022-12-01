@@ -1,11 +1,2 @@
-com/academy/jdbc/repository/RepositoryBase.class
-com/academy/jdbc/config/JpaConfig.class
-com/academy/jdbc/entity/Like$Pk.class
-com/academy/jdbc/repository/CommentRepository.class
-com/academy/jdbc/entity/User.class
-com/academy/jdbc/Base.class
-com/academy/jdbc/entity/Comment.class
-com/academy/jdbc/config/WebConfig.class
-com/academy/jdbc/entity/Like.class
-com/academy/jdbc/entity/Post.class
-com/academy/jdbc/config/RootConfig.class
+com/academy/jdbc/controller/ControllerBase.class
+com/academy/jdbc/dto/BoardDto.class

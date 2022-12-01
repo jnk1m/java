@@ -1,13 +1,16 @@
 package com.academy.jdbc.entity;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 @Table(name = "BoardUser")
 @Getter
+@AllArgsConstructor
+@NoArgsConstructor
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -20,7 +23,7 @@ public class User {
     private String password;
 
     @ManyToOne
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "role", insertable = false, updatable = false)
     private Role role;
 
 
