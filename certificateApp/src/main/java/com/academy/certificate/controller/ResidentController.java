@@ -1,7 +1,7 @@
 package com.academy.certificate.controller;
 
-import com.academy.certificate.dto.AliveResidentDto;
-import com.academy.certificate.dto.EditResidentDto;
+import com.academy.certificate.dto.ResidentDto;
+import com.academy.certificate.dto.ModifyResidentDto;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.exception.ResidentNotFoundException;
 import com.academy.certificate.service.ResidentService;
@@ -23,20 +23,20 @@ public class ResidentController {
 
     /*주민 등록*/
     @PostMapping
-    public ResponseEntity<Resident> doResidentResist(@RequestBody AliveResidentDto aliveResidentDto) {
-        Resident resident = residentService.registerResident(aliveResidentDto);
+    public ResponseEntity<Resident> doResidentResist(@RequestBody ResidentDto residentDto) {
+        Resident resident = residentService.registerResident(residentDto);
         return ResponseEntity.ok(resident);
     }
 
     /*주민 수정*/
     @PutMapping("/{serialNumber}")
-    public void doModifyResident(@PathVariable Long serialNumber,
-                                 @Valid @RequestBody EditResidentDto editResidentDto,
+    public int doModifyResident(@PathVariable Long serialNumber,
+                                 @Valid @RequestBody ModifyResidentDto modifyResidentDto,
                                  BindingResult bindingResult) throws ResidentNotFoundException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("주민등록번호 뒷자리 7글자만 수정 가능합니다.");
         }
 
-        int i = residentService.modifyResidentInfo(serialNumber, editResidentDto);
+        return residentService.modifyResidentInfo(serialNumber, modifyResidentDto);
     }
 }

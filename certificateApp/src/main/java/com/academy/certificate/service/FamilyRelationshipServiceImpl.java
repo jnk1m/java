@@ -1,6 +1,7 @@
 package com.academy.certificate.service;
 
 import com.academy.certificate.dto.FamilyRelationshipDto;
+import com.academy.certificate.dto.ModifyFamilyRelationshipDto;
 import com.academy.certificate.entity.FamilyRelationship;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.repository.FamilyRelationshipRepository;
@@ -12,8 +13,8 @@ import java.util.Optional;
 
 @Service
 public class FamilyRelationshipServiceImpl implements FamilyRelationshipService {
-    private FamilyRelationshipRepository familyRelationshipRepository;
-    private ResidentRepository residentRepository;
+    private final FamilyRelationshipRepository familyRelationshipRepository;
+    private final ResidentRepository residentRepository;
 
     public FamilyRelationshipServiceImpl(FamilyRelationshipRepository familyRelationshipRepository, ResidentRepository residentRepository) {
         this.familyRelationshipRepository = familyRelationshipRepository;
@@ -29,6 +30,12 @@ public class FamilyRelationshipServiceImpl implements FamilyRelationshipService 
 
 
         return familyRelationshipRepository.save(family);
+    }
+
+    @Override
+    @Transactional
+    public int modifyFamilyRelationship(Long serialNumber, Long familySerialNumber, ModifyFamilyRelationshipDto dto) {
+        return familyRelationshipRepository.updateFamilyRelationshipCode(serialNumber, familySerialNumber, dto.getFamilyRelationshipCode());
     }
 }
 

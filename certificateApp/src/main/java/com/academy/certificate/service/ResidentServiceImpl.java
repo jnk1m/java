@@ -1,7 +1,7 @@
 package com.academy.certificate.service;
 
-import com.academy.certificate.dto.AliveResidentDto;
-import com.academy.certificate.dto.EditResidentDto;
+import com.academy.certificate.dto.ResidentDto;
+import com.academy.certificate.dto.ModifyResidentDto;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.exception.ResidentNotFoundException;
 import com.academy.certificate.repository.ResidentRepository;
@@ -35,23 +35,23 @@ public class ResidentServiceImpl implements ResidentService {
 
     @Transactional
     @Override
-    public Resident registerResident(AliveResidentDto aliveResidentDto) {
-        Resident resident = new Resident(aliveResidentDto.getResidentSerialNumber(), aliveResidentDto.getName(), aliveResidentDto.getResidentRegistrationNumber(),
-                aliveResidentDto.getGenderCode(), aliveResidentDto.getBirthDate(),
-                aliveResidentDto.getBirthPlaceCode(), aliveResidentDto.getRegistrationBaseAddress());
+    public Resident registerResident(ResidentDto residentDto) {
+        Resident resident = new Resident(residentDto.getResidentSerialNumber(), residentDto.getName(), residentDto.getResidentRegistrationNumber(),
+                residentDto.getGenderCode(), residentDto.getBirthDate(),
+                residentDto.getBirthPlaceCode(), residentDto.getRegistrationBaseAddress());
 
         return residentRepository.save(resident);
     }
 
     @Transactional
     @Override
-    public int modifyResidentInfo(Long serialNumber, EditResidentDto editResidentDto) throws ResidentNotFoundException {
+    public int modifyResidentInfo(Long serialNumber, ModifyResidentDto modifyResidentDto) throws ResidentNotFoundException {
         checkExistResident(serialNumber);
 
-        String name = editResidentDto.getName();
-        String residentRegistrationNumber = editResidentDto.getResidentRegistrationNumber();
-        String genderCode = editResidentDto.getGenderCode();
-        String registrationBaseAddress = editResidentDto.getRegistrationBaseAddress();
+        String name = modifyResidentDto.getName();
+        String residentRegistrationNumber = modifyResidentDto.getResidentRegistrationNumber();
+        String genderCode = modifyResidentDto.getGenderCode();
+        String registrationBaseAddress = modifyResidentDto.getRegistrationBaseAddress();
 
         int modifyResult = 0;
 

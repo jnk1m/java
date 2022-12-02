@@ -13,7 +13,7 @@ import javax.validation.constraints.Size;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class EditResidentDto {
+public class ModifyResidentDto {
     private String name;
 
     /*주민등록번호 수정은 뒷자리만 가능하여 Size(max=7)로 설정*/

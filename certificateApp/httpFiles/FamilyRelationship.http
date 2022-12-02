@@ -5,3 +5,12 @@ Content-Type: application/json
   "familyResidentSerialNumber": 11,
   "familyRelationshipCode": "자녀"
 }
+
+###
+
+PUT http://localhost:9000/residents/9/relationship/11 HTTP/1.1
+Content-Type: application/json
+
+{
+    "familyRelationshipCode": "부"
+}

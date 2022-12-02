@@ -1,7 +1,8 @@
 package com.academy.certificate.service;
 
-import com.academy.certificate.dto.AliveResidentDto;
-import com.academy.certificate.dto.EditResidentDto;
+import com.academy.certificate.dto.ModifyFamilyRelationshipDto;
+import com.academy.certificate.dto.ResidentDto;
+import com.academy.certificate.dto.ModifyResidentDto;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.exception.ResidentNotFoundException;
 
@@ -12,8 +13,9 @@ public interface ResidentService {
     void checkExistResident(Long serialNumber)throws ResidentNotFoundException;
     Optional<Resident> getResident(Long serialNumber) throws ResidentNotFoundException;
 
-    Resident registerResident(AliveResidentDto aliveResidentDto);
+    Resident registerResident(ResidentDto residentDto);
 
 
-    int modifyResidentInfo(Long serialNumber, EditResidentDto editResidentDto) throws ResidentNotFoundException;
+    int modifyResidentInfo(Long serialNumber, ModifyResidentDto modifyResidentDto) throws ResidentNotFoundException;
+
 }

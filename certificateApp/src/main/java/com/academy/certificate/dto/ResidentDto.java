@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-public class AliveResidentDto {
+public class ResidentDto {
     private Long residentSerialNumber;
 
     private String name;
