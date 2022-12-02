@@ -1,0 +1,6 @@
+com/academy/certificate/config/RootConfig.class
+com/academy/certificate/Base.class
+com/academy/certificate/controller/ControllerBase.class
+com/academy/certificate/config/JpaConfig.class
+com/academy/certificate/config/WebConfig.class
+com/academy/certificate/repository/RepositoryBase.class
