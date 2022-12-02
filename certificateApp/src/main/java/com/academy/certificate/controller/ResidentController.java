@@ -1,42 +1,42 @@
 package com.academy.certificate.controller;
 
 import com.academy.certificate.dto.AliveResidentDto;
+import com.academy.certificate.dto.EditResidentDto;
 import com.academy.certificate.entity.Resident;
-import com.academy.certificate.repository.ResidentRepository;
+import com.academy.certificate.exception.ResidentNotFoundException;
+import com.academy.certificate.service.ResidentService;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.ValidationException;
 
 @RestController
 @RequestMapping("/residents")
 public class ResidentController {
-    ResidentRepository residentRepository;
+    private final ResidentService residentService;
 
-    public ResidentController(ResidentRepository residentRepository) {
-        this.residentRepository = residentRepository;
+    public ResidentController(ResidentService residentService) {
+        this.residentService = residentService;
     }
 
+    /*주민 등록*/
     @PostMapping
-    public ModelAndView doResidentResist(@Valid @ModelAttribute AliveResidentDto aliveResidentDto,
-                                         BindingResult bindingResult) {
-        ModelAndView modelAndView = new ModelAndView();
+    public ResponseEntity<Resident> doResidentResist(@RequestBody AliveResidentDto aliveResidentDto) {
+        Resident resident = residentService.registerResident(aliveResidentDto);
+        return ResponseEntity.ok(resident);
+    }
 
-        Resident resident = new Resident(aliveResidentDto.getResidentSerialNumber(),
-                aliveResidentDto.getName(), aliveResidentDto.getResidentRegistrationNumber(),
-                aliveResidentDto.getGenderCode(), aliveResidentDto.getBirthDate(),
-                aliveResidentDto.getBirthPlaceCode(), aliveResidentDto.getRegistrationBaseAddress());
+    /*주민 수정*/
+    @PutMapping("/{serialNumber}")
+    public void doModifyResident(@PathVariable Long serialNumber,
+                                 @Valid @RequestBody EditResidentDto editResidentDto,
+                                 BindingResult bindingResult) throws ResidentNotFoundException {
+        if (bindingResult.hasErrors()) {
+            throw new ValidationException("주민등록번호 뒷자리 7글자만 수정 가능합니다.");
+        }
 
-        residentRepository.saveAndFlush(resident);
-
-        modelAndView.setViewName("result");
-        modelAndView.addObject("response",resident);
-
-
-        return modelAndView;
+        int i = residentService.modifyResidentInfo(serialNumber, editResidentDto);
     }
 }

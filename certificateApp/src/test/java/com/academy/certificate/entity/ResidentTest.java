@@ -31,8 +31,13 @@ class ResidentTest {
 
 
     @Test
-    void getName() {
-        Optional<Resident> resident = residentRepository.findById(1L);
-        assertThat(resident.get().getName()).isEqualTo("남길동");
+    void getResidentById() {
+        Optional<Resident> resident = residentRepository.findById(8L);
+        assertThat(resident.get().getResidentSerialNumber()).isEqualTo(8L);
+    }
+
+    @Test
+    void existById() {
+        assertThat(residentRepository.existsById(9L)).isFalse();
     }
 }

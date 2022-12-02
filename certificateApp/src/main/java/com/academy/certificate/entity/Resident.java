@@ -3,8 +3,11 @@ package com.academy.certificate.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.time.LocalDate;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "resident")
@@ -12,7 +15,6 @@ import java.time.LocalDate;
 @NoArgsConstructor
 public class Resident {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "resident_serial_number", nullable = false)
     private Long residentSerialNumber;
 
@@ -26,7 +28,7 @@ public class Resident {
     private String genderCode;
 
     @Column(name = "birth_date", nullable = false)
-    private LocalDate birthDate;
+    private LocalDateTime birthDate;
 
     @Column(name = "birth_place_code", nullable = false, length = 20)
     private String birthPlaceCode;
@@ -35,7 +37,7 @@ public class Resident {
     private String registrationBaseAddress;
 
     @Column(name = "death_date")
-    private LocalDate deathDate;
+    private LocalDateTime deathDate;
 
     @Column(name = "death_place_code", length = 20)
     private String deathPlaceCode;
@@ -43,7 +45,7 @@ public class Resident {
     @Column(name = "death_place_address", length = 500)
     private String deathPlaceAddress;
 
-    public Resident(Long residentSerialNumber, String name, String residentRegistrationNumber, String genderCode, LocalDate birthDate, String birthPlaceCode, String registrationBaseAddress) {
+    public Resident(Long residentSerialNumber, String name, String residentRegistrationNumber, String genderCode, LocalDateTime birthDate, String birthPlaceCode, String registrationBaseAddress) {
         this.residentSerialNumber = residentSerialNumber;
         this.name = name;
         this.residentRegistrationNumber = residentRegistrationNumber;
@@ -52,4 +54,5 @@ public class Resident {
         this.birthPlaceCode = birthPlaceCode;
         this.registrationBaseAddress = registrationBaseAddress;
     }
+
 }

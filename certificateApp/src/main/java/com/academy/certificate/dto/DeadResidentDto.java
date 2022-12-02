@@ -4,14 +4,15 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * A DTO for the {@link com.academy.certificate.entity.Resident} entity
  */
 @Data
-public class DeadResidentDto implements Serializable {
+public class DeadResidentDto {
     private final Long residentSerialNumber;
-    private final LocalDate deathDate;
+    private final LocalDateTime deathDate;
     private final String deathPlaceCode;
     private final String deathPlaceAddress;
 }

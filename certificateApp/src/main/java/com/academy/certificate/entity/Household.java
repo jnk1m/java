@@ -14,21 +14,20 @@ import java.time.LocalDate;
 public class Household {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "household_serial_number", nullable = false)
+    @Column(name = "household_serial_number")
     private Long householdSerialNumber;
 
-    @Getter(AccessLevel.NONE)
     @ManyToOne(optional = false)
-    @JoinColumn(name = "resident_serial_number", nullable = false)
+    @JoinColumn(name = "resident_serial_number")
     private Resident householdResidentSerialNumber;
 
-    @Column(name = "household_composition_date", nullable = false)
+    @Column(name = "household_composition_date")
     private LocalDate householdCompositionDate;
 
-    @Column(name = "household_composition_reason_code", nullable = false, length = 20)
+    @Column(name = "household_composition_reason_code", length = 20)
     private String householdCompositionReasonCode;
 
-    @Column(name = "current_house_movement_address", nullable = false, length = 500)
+    @Column(name = "current_house_movement_address", length = 500)
     private String currentHouseMovementAddress;
 
 

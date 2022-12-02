@@ -16,22 +16,22 @@ public class BirthDeathReportResident {
 
     @MapsId("residentSerialNumber")
     @ManyToOne
-    @JoinColumn(name = "resident_serial_number", nullable = false)
+    @JoinColumn(name = "resident_serial_number")
     private Resident resident;
 
-    @Column(name = "birth_death_report_date", nullable = false)
+    @Column(name = "birth_death_report_date")
     private LocalDate birthDeathReportDate;
 
     @Column(name = "birth_report_qualifications_code", length = 20)
     private String birthReportQualificationsCode;
 
-    @Column(name = "death_report_qualifications_code", nullable = false, length = 20)
+    @Column(name = "death_report_qualifications_code", length = 20)
     private String deathReportQualificationsCode;
 
-    @Column(name = "email_address", nullable = false, length = 50)
+    @Column(name = "email_address", length = 50)
     private String emailAddress;
 
-    @Column(name = "phone_number", nullable = false, length = 10)
+    @Column(name = "phone_number", length = 10)
     private String phoneNumber;
 
 
@@ -40,10 +40,10 @@ public class BirthDeathReportResident {
     @EqualsAndHashCode
     @Embeddable
     public class Pk implements Serializable {
-        @Column(name = "resident_serial_number", nullable = false)
+        @Column(name = "resident_serial_number")
         private Long residentSerialNumber;
 
-        @Column(name = "birth_death_type_code", nullable = false, length = 20)
+        @Column(name = "birth_death_type_code", length = 20)
         private String birthDeathTypeCode;
     }
 }

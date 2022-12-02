@@ -1,20 +1,31 @@
 package com.academy.certificate.dto;
 
-import lombok.Data;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
-import java.io.Serializable;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  * A DTO for the {@link com.academy.certificate.entity.Resident} entity
  */
-@Data
-public class AliveResidentDto implements Serializable {
-//    private final Long residentSerialNumber;
-    private final String name;
-    private final String residentRegistrationNumber;
-    private final String genderCode;
-    private final LocalDate birthDate;
-    private final String birthPlaceCode;
-    private final String registrationBaseAddress;
+@NoArgsConstructor
+@AllArgsConstructor
+@Getter
+public class AliveResidentDto {
+    private Long residentSerialNumber;
+
+    private String name;
+
+    private String residentRegistrationNumber;
+
+    private String genderCode;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime birthDate;
+
+    private String birthPlaceCode;
+
+    private String registrationBaseAddress;
 }

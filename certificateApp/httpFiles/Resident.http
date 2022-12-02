@@ -1,0 +1,23 @@
+POST http://localhost:9000/residents HTTP/1.1
+Content-Type: application/json
+
+{
+  "residentSerialNumber": 10,
+  "name": "프란시스 코베인",
+  "residentRegistrationNumber": "920818-2765432",
+  "genderCode": "여",
+  "birthDate": "1992-08-18 21:25:20",
+  "birthPlaceCode": "병원",
+  "registrationBaseAddress": "서울특별시 강서구 하늘길 112"
+}
+
+###
+
+PUT http://localhost:9000/residents/8 HTTP/1.1
+Content-Type: application/json
+
+{
+  "residentRegistrationNumber": "2734121"
+}
+
+
