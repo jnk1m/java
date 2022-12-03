@@ -9,9 +9,6 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.validation.constraints.Size;
 
-/**
- * A DTO for the {@link com.academy.certificate.entity.Resident} entity
- */
 
 @NoArgsConstructor
 @AllArgsConstructor

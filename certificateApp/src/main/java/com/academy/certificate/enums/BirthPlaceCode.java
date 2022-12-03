@@ -15,8 +15,8 @@ public enum BirthPlaceCode {
     }
 
     @JsonCreator
-    public static FamilyRelationshipCode from(String value) {
-        for (FamilyRelationshipCode code : FamilyRelationshipCode.values()) {
+    public static BirthPlaceCode from(String value) {
+        for (BirthPlaceCode code : BirthPlaceCode.values()) {
             if (code.getValue().equals(value)) {
                 return code;
             }

@@ -3,6 +3,7 @@ package com.academy.certificate.controller;
 import com.academy.certificate.dto.FamilyRelationshipDto;
 import com.academy.certificate.dto.ModifyFamilyRelationshipDto;
 import com.academy.certificate.entity.FamilyRelationship;
+import com.academy.certificate.exception.FamilyRelationshipNotFoundException;
 import com.academy.certificate.exception.ResidentNotFoundException;
 import com.academy.certificate.service.FamilyRelationshipService;
 import com.academy.certificate.service.ResidentService;
@@ -46,18 +47,29 @@ public class FamilyRelationshipController {
     public int doModifyFamilyRelationship(@PathVariable Long serialNumber,
                                           @PathVariable Long familySerialNumber,
                                           @Valid @RequestBody ModifyFamilyRelationshipDto dto,
-                                          BindingResult bindingResult
-    ) throws ResidentNotFoundException {
+                                          BindingResult bindingResult) throws ResidentNotFoundException, FamilyRelationshipNotFoundException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("가족 관계를 입력하세요");
         }
-
 
         residentService.checkExistResident(serialNumber);
         residentService.checkExistResident(familySerialNumber);
 
 
         return familyRelationshipService.modifyFamilyRelationship(serialNumber, familySerialNumber, dto);
+    }
+
+    /*가족관계 삭제*/
+    @DeleteMapping("/relationship/{familySerialNumber}")
+    public int doDeleteFamilyRelationship(@PathVariable Long serialNumber,
+                                          @PathVariable Long familySerialNumber) throws ResidentNotFoundException, FamilyRelationshipNotFoundException {
+        residentService.checkExistResident(serialNumber);
+        residentService.checkExistResident(familySerialNumber);
+
+        return familyRelationshipService.deleteFamilyRelationship(serialNumber,familySerialNumber);
+
+
+
     }
 
 

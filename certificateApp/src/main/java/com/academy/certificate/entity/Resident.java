@@ -1,6 +1,7 @@
 package com.academy.certificate.entity;
 
 import com.academy.certificate.enums.BirthPlaceCode;
+import com.academy.certificate.enums.DeathPlaceCode;
 import com.academy.certificate.enums.GenderCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -42,7 +43,8 @@ public class Resident {
     private LocalDateTime deathDate;
 
     @Column(name = "death_place_code", length = 20)
-    private String deathPlaceCode;
+    @Enumerated(EnumType.STRING)
+    private DeathPlaceCode deathPlaceCode;
 
     @Column(name = "death_place_address", length = 500)
     private String deathPlaceAddress;

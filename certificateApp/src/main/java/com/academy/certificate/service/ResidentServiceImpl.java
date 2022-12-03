@@ -1,5 +1,6 @@
 package com.academy.certificate.service;
 
+import com.academy.certificate.dto.BirthReportDto;
 import com.academy.certificate.dto.ResidentDto;
 import com.academy.certificate.dto.ModifyResidentDto;
 import com.academy.certificate.entity.Resident;
@@ -9,6 +10,7 @@ import com.academy.certificate.repository.ResidentRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Objects;
 import java.util.Optional;
 
 @Service
@@ -37,7 +39,8 @@ public class ResidentServiceImpl implements ResidentService {
     @Transactional
     @Override
     public Resident registerResident(ResidentDto residentDto) {
-        Resident resident = new Resident(residentDto.getName(), residentDto.getResidentRegistrationNumber(),
+        String registrationNum = generateResidentRegistrationNum(residentDto);
+        Resident resident = new Resident(residentDto.getName(), registrationNum,
                 residentDto.getGenderCode(), residentDto.getBirthDate(),
                 residentDto.getBirthPlaceCode(), residentDto.getRegistrationBaseAddress());
 
@@ -78,6 +81,46 @@ public class ResidentServiceImpl implements ResidentService {
         }
 
         return modifyResult;
+    }
+
+    /*주민 등록 시 필요한 주민 등록 번호를 생성*/
+    private String generateResidentRegistrationNum(ResidentDto dto){
+        String[] splitRegistrationNum = dto.getBirthDate().toString().split("-");
+        StringBuilder registrationNum = new StringBuilder();
+        registrationNum.append(splitRegistrationNum[0].substring(2))
+                .append(splitRegistrationNum[1])
+                .append(splitRegistrationNum[2].substring(0,2))
+                .append("-");
+
+        generateGenderCode(dto, splitRegistrationNum, registrationNum);
+
+        registrationNum.append("123456");
+
+        return registrationNum.toString();
+
+    }
+
+    private void generateGenderCode(ResidentDto dto, String[] splitRegistrationNum, StringBuilder registrationNum) {
+        if(splitRegistrationNum[0].startsWith("1")){
+            if(Objects.equals(dto.getGenderCode().getValue(), "남")){
+                registrationNum.append("1");
+            }
+        }
+        if(splitRegistrationNum[0].startsWith("1")){
+            if(Objects.equals(dto.getGenderCode().getValue(), "여")){
+                registrationNum.append("2");
+            }
+        }
+        if(splitRegistrationNum[0].startsWith("2")){
+            if(Objects.equals(dto.getGenderCode().getValue(), "남")){
+                registrationNum.append("3");
+            }
+        }
+        if(splitRegistrationNum[0].startsWith("2")){
+            if(Objects.equals(dto.getGenderCode().getValue(), "여")){
+                registrationNum.append("4");
+            }
+        }
     }
 
 

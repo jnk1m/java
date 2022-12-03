@@ -4,6 +4,7 @@ import com.academy.certificate.dto.FamilyRelationshipDto;
 import com.academy.certificate.dto.ModifyFamilyRelationshipDto;
 import com.academy.certificate.entity.FamilyRelationship;
 import com.academy.certificate.entity.Resident;
+import com.academy.certificate.exception.FamilyRelationshipNotFoundException;
 import com.academy.certificate.repository.FamilyRelationshipRepository;
 import com.academy.certificate.repository.ResidentRepository;
 import org.springframework.stereotype.Service;
@@ -34,8 +35,16 @@ public class FamilyRelationshipServiceImpl implements FamilyRelationshipService 
 
     @Override
     @Transactional
-    public int modifyFamilyRelationship(Long serialNumber, Long familySerialNumber, ModifyFamilyRelationshipDto dto) {
+    public int modifyFamilyRelationship(Long serialNumber, Long familySerialNumber, ModifyFamilyRelationshipDto dto) throws FamilyRelationshipNotFoundException {
+        familyRelationshipRepository.findById(new FamilyRelationship.Pk(serialNumber, familySerialNumber)).orElseThrow(FamilyRelationshipNotFoundException::new);
         return familyRelationshipRepository.updateFamilyRelationshipCode(serialNumber, familySerialNumber, dto.getFamilyRelationshipCode());
+    }
+
+    @Override
+    public int deleteFamilyRelationship(Long serialNumber, Long familySerialNumber) throws FamilyRelationshipNotFoundException {
+        familyRelationshipRepository.findById(new FamilyRelationship.Pk(serialNumber, familySerialNumber)).orElseThrow(FamilyRelationshipNotFoundException::new);
+
+        return familyRelationshipRepository.deleteFamilyRelationship(serialNumber, familySerialNumber);
     }
 }
 

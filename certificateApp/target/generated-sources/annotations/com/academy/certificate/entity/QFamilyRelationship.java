@@ -22,7 +22,7 @@ public class QFamilyRelationship extends EntityPathBase<FamilyRelationship> {
 
     public static final QFamilyRelationship familyRelationship = new QFamilyRelationship("familyRelationship");
 
-    public final StringPath familyRelationshipCode = createString("familyRelationshipCode");
+    public final EnumPath<com.academy.certificate.enums.FamilyRelationshipCode> familyRelationshipCode = createEnum("familyRelationshipCode", com.academy.certificate.enums.FamilyRelationshipCode.class);
 
     public final QFamilyRelationship_Pk pk;
 

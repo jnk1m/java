@@ -21,7 +21,7 @@ public class QResident extends EntityPathBase<Resident> {
 
     public final DateTimePath<java.time.LocalDateTime> birthDate = createDateTime("birthDate", java.time.LocalDateTime.class);
 
-    public final StringPath birthPlaceCode = createString("birthPlaceCode");
+    public final EnumPath<com.academy.certificate.enums.BirthPlaceCode> birthPlaceCode = createEnum("birthPlaceCode", com.academy.certificate.enums.BirthPlaceCode.class);
 
     public final DateTimePath<java.time.LocalDateTime> deathDate = createDateTime("deathDate", java.time.LocalDateTime.class);
 
@@ -29,7 +29,7 @@ public class QResident extends EntityPathBase<Resident> {
 
     public final StringPath deathPlaceCode = createString("deathPlaceCode");
 
-    public final StringPath genderCode = createString("genderCode");
+    public final EnumPath<com.academy.certificate.enums.GenderCode> genderCode = createEnum("genderCode", com.academy.certificate.enums.GenderCode.class);
 
     public final StringPath name = createString("name");
 

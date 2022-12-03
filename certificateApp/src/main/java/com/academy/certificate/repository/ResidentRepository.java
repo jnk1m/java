@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
 public interface ResidentRepository extends JpaRepository<Resident, Long> {
-
+    
     @Modifying
     @Transactional
     @Query("update Resident r set r.name = ?1 where r.residentSerialNumber = ?2 ")

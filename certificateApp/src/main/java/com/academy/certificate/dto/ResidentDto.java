@@ -11,18 +11,13 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import java.time.LocalDateTime;
 
-/**
- * A DTO for the {@link com.academy.certificate.entity.Resident} entity
- */
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
 public class ResidentDto {
-    private Long residentSerialNumber;
-
     private String name;
 
-    private String residentRegistrationNumber;
+//    private String residentRegistrationNumber;
 
     @Enumerated(EnumType.STRING)
     private GenderCode genderCode;

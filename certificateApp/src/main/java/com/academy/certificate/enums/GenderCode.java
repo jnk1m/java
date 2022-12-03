@@ -14,8 +14,8 @@ public enum GenderCode {
     }
 
     @JsonCreator
-    public static FamilyRelationshipCode from(String value) {
-        for (FamilyRelationshipCode code : FamilyRelationshipCode.values()) {
+    public static GenderCode from(String value) {
+        for (GenderCode code : GenderCode.values()) {
             if (code.getValue().equals(value)) {
                 return code;
             }

@@ -17,4 +17,8 @@ public interface FamilyRelationshipRepository extends JpaRepository<FamilyRelati
                                      @Param("familySerialNumber") Long familySerialNumber,
                                      @Param("familyRelationshipCode") FamilyRelationshipCode familyRelationshipCode);
 
+    @Modifying
+    @Transactional
+    @Query("DELETE FROM FamilyRelationship f WHERE f.pk.baseResidentSerialNumber = ?1 AND f.pk.familyResidentSerialNumber= ?2")
+    int deleteFamilyRelationship(@Param("serialNumber") Long serialNumber, @Param("familySerialNumber") Long familySerialNumber);
 }

@@ -2,12 +2,11 @@ POST http://localhost:9000/residents HTTP/1.1
 Content-Type: application/json
 
 {
-  "name": "프란시스 코베인",
-  "residentRegistrationNumber": "920818-2765432",
+  "name": "코트니 러브",
   "genderCode": "여",
-  "birthDate": "1992-08-18 21:25:20",
-  "birthPlaceCode": "병원",
-  "registrationBaseAddress": "서울특별시 강서구 하늘길 112"
+  "birthDate": "1964-07-09 11:20:20",
+  "birthPlaceCode": "자택",
+  "registrationBaseAddress": "인천광역시 계양구 하늘길 112"
 }
 
 ###
