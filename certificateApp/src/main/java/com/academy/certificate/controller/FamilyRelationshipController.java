@@ -34,21 +34,28 @@ public class FamilyRelationshipController {
         }
 
         residentService.checkExistResident(serialNumber);
+        residentService.checkExistResident(dto.getFamilyResidentSerialNumber());
 
         FamilyRelationship familyRelationship = familyRelationshipService.registerFamilyRelationship(serialNumber, dto);
 
         return ResponseEntity.ok(familyRelationship);
     }
 
+    /*가족관계 수정*/
     @PutMapping("/relationship/{familySerialNumber}")
     public int doModifyFamilyRelationship(@PathVariable Long serialNumber,
                                           @PathVariable Long familySerialNumber,
                                           @Valid @RequestBody ModifyFamilyRelationshipDto dto,
                                           BindingResult bindingResult
-    ) {
+    ) throws ResidentNotFoundException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("가족 관계를 입력하세요");
         }
+
+
+        residentService.checkExistResident(serialNumber);
+        residentService.checkExistResident(familySerialNumber);
+
 
         return familyRelationshipService.modifyFamilyRelationship(serialNumber, familySerialNumber, dto);
     }

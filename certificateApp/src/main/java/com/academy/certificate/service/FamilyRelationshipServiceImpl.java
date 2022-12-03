@@ -23,10 +23,10 @@ public class FamilyRelationshipServiceImpl implements FamilyRelationshipService 
 
     @Override
     @Transactional
-    public FamilyRelationship registerFamilyRelationship(Long serialNumber, FamilyRelationshipDto familyRelationshipDto) {
+    public FamilyRelationship registerFamilyRelationship(Long serialNumber, FamilyRelationshipDto dto) {
         Optional<Resident> resident = residentRepository.findById(serialNumber);
-        FamilyRelationship family = new FamilyRelationship(new FamilyRelationship.Pk(serialNumber, familyRelationshipDto.getFamilyResidentSerialNumber()),
-                familyRelationshipDto.getFamilyRelationshipCode(), resident.get());
+        FamilyRelationship family = new FamilyRelationship(new FamilyRelationship.Pk(serialNumber, dto.getFamilyResidentSerialNumber()),
+                dto.getFamilyRelationshipCode(), resident.get());
 
 
         return familyRelationshipRepository.save(family);

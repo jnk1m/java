@@ -3,6 +3,7 @@ package com.academy.certificate.service;
 import com.academy.certificate.dto.ResidentDto;
 import com.academy.certificate.dto.ModifyResidentDto;
 import com.academy.certificate.entity.Resident;
+import com.academy.certificate.enums.GenderCode;
 import com.academy.certificate.exception.ResidentNotFoundException;
 import com.academy.certificate.repository.ResidentRepository;
 import org.springframework.stereotype.Service;
@@ -36,7 +37,7 @@ public class ResidentServiceImpl implements ResidentService {
     @Transactional
     @Override
     public Resident registerResident(ResidentDto residentDto) {
-        Resident resident = new Resident(residentDto.getResidentSerialNumber(), residentDto.getName(), residentDto.getResidentRegistrationNumber(),
+        Resident resident = new Resident(residentDto.getName(), residentDto.getResidentRegistrationNumber(),
                 residentDto.getGenderCode(), residentDto.getBirthDate(),
                 residentDto.getBirthPlaceCode(), residentDto.getRegistrationBaseAddress());
 
@@ -50,7 +51,7 @@ public class ResidentServiceImpl implements ResidentService {
 
         String name = modifyResidentDto.getName();
         String residentRegistrationNumber = modifyResidentDto.getResidentRegistrationNumber();
-        String genderCode = modifyResidentDto.getGenderCode();
+        GenderCode genderCode = modifyResidentDto.getGenderCode();
         String registrationBaseAddress = modifyResidentDto.getRegistrationBaseAddress();
 
         int modifyResult = 0;
@@ -60,6 +61,7 @@ public class ResidentServiceImpl implements ResidentService {
         }
 
         if (residentRegistrationNumber != null) {
+            /*주민등록번호 뒤 7자리 수정을 위하여 resident 객체를 가지고 와서 기존 주민등록번호를 잘라 연결해줍니다.*/
             Optional<Resident> resident = residentRepository.findById(serialNumber);
             String originalResidentRegistrationNumber = resident.get().getResidentRegistrationNumber().substring(0, 7);
             String modifiedResidentRegistrationNumber = originalResidentRegistrationNumber.concat(residentRegistrationNumber);

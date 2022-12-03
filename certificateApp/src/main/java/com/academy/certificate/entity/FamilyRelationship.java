@@ -1,5 +1,6 @@
 package com.academy.certificate.entity;
 
+import com.academy.certificate.enums.FamilyRelationshipCode;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -18,7 +19,8 @@ public class FamilyRelationship {
     private Pk pk;
 
     @Column(name = "family_relationship_code")
-    private String familyRelationshipCode;
+    @Enumerated(EnumType.STRING)
+    private FamilyRelationshipCode familyRelationshipCode;
 
     @MapsId("baseResidentSerialNumber")
     @ManyToOne

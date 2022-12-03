@@ -1,12 +1,11 @@
 package com.academy.certificate.entity;
 
+import com.academy.certificate.enums.BirthPlaceCode;
+import com.academy.certificate.enums.GenderCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
@@ -15,25 +14,28 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class Resident {
     @Id
-    @Column(name = "resident_serial_number", nullable = false)
+    @Column(name = "resident_serial_number")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long residentSerialNumber;
 
-    @Column(name = "name", nullable = false, length = 100)
+    @Column(name = "name", length = 100)
     private String name;
 
-    @Column(name = "resident_registration_number", nullable = false, length = 300)
+    @Column(name = "resident_registration_number", length = 300)
     private String residentRegistrationNumber;
 
-    @Column(name = "gender_code", nullable = false, length = 20)
-    private String genderCode;
+    @Column(name = "gender_code", length = 20)
+    @Enumerated(EnumType.STRING)
+    private GenderCode genderCode;
 
-    @Column(name = "birth_date", nullable = false)
+    @Column(name = "birth_date")
     private LocalDateTime birthDate;
 
-    @Column(name = "birth_place_code", nullable = false, length = 20)
-    private String birthPlaceCode;
+    @Column(name = "birth_place_code", length = 20)
+    @Enumerated(EnumType.STRING)
+    private BirthPlaceCode birthPlaceCode;
 
-    @Column(name = "registration_base_address", nullable = false, length = 500)
+    @Column(name = "registration_base_address", length = 500)
     private String registrationBaseAddress;
 
     @Column(name = "death_date")
@@ -45,8 +47,9 @@ public class Resident {
     @Column(name = "death_place_address", length = 500)
     private String deathPlaceAddress;
 
-    public Resident(Long residentSerialNumber, String name, String residentRegistrationNumber, String genderCode, LocalDateTime birthDate, String birthPlaceCode, String registrationBaseAddress) {
-        this.residentSerialNumber = residentSerialNumber;
+    public Resident(String name, String residentRegistrationNumber,
+                    GenderCode genderCode, LocalDateTime birthDate, BirthPlaceCode birthPlaceCode,
+                    String registrationBaseAddress) {
         this.name = name;
         this.residentRegistrationNumber = residentRegistrationNumber;
         this.genderCode = genderCode;

@@ -1,9 +1,12 @@
 package com.academy.certificate.dto;
 
+import com.academy.certificate.enums.GenderCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.Size;
 
 /**
@@ -20,7 +23,8 @@ public class ModifyResidentDto {
     @Size(max = 7)
     private String residentRegistrationNumber;
 
-    private String genderCode;
+    @Enumerated(EnumType.STRING)
+    private GenderCode genderCode;
 
     private String registrationBaseAddress;
 

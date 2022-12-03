@@ -1,6 +1,7 @@
 package com.academy.certificate.repository;
 
 import com.academy.certificate.entity.Resident;
+import com.academy.certificate.enums.GenderCode;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -22,7 +23,7 @@ public interface ResidentRepository extends JpaRepository<Resident, Long> {
     @Modifying
     @Transactional
     @Query("update Resident r set r.genderCode = ?1 where r.residentSerialNumber = ?2 ")
-    int modifyGenderCode(String genderCode, Long serialNumber);
+    int modifyGenderCode(GenderCode genderCode, Long serialNumber);
 
     @Modifying
     @Transactional

@@ -1,10 +1,13 @@
 package com.academy.certificate.dto;
 
+import com.academy.certificate.enums.FamilyRelationshipCode;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -17,5 +20,6 @@ import java.io.Serializable;
 @Getter
 public class ModifyFamilyRelationshipDto{
     @NotNull
-    private String familyRelationshipCode;
+    @Enumerated(EnumType.STRING)
+    private FamilyRelationshipCode familyRelationshipCode;
 }
