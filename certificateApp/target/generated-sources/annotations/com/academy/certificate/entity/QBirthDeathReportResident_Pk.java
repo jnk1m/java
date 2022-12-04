@@ -19,7 +19,7 @@ public class QBirthDeathReportResident_Pk extends BeanPath<BirthDeathReportResid
 
     public static final QBirthDeathReportResident_Pk pk = new QBirthDeathReportResident_Pk("pk");
 
-    public final StringPath birthDeathTypeCode = createString("birthDeathTypeCode");
+    public final EnumPath<com.academy.certificate.enums.BirthDeathTypeCode> birthDeathTypeCode = createEnum("birthDeathTypeCode", com.academy.certificate.enums.BirthDeathTypeCode.class);
 
     public final NumberPath<Long> residentSerialNumber = createNumber("residentSerialNumber", Long.class);
 

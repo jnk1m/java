@@ -1,12 +1,9 @@
 package com.academy.certificate.service;
 
-import com.academy.certificate.dto.BirthReportDto;
-import com.academy.certificate.dto.FamilyRelationshipDto;
-import com.academy.certificate.dto.ResidentDto;
+import com.academy.certificate.domain.BirthReportDto;
 import com.academy.certificate.entity.BirthDeathReportResident;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.repository.BirthDeathReportResidentRepository;
-import com.academy.certificate.repository.FamilyRelationshipRepository;
 import com.academy.certificate.repository.ResidentRepository;
 import org.springframework.stereotype.Service;
 

@@ -1,16 +1,20 @@
 package com.academy.certificate.controller;
 
-import com.academy.certificate.dto.ResidentDto;
-import com.academy.certificate.dto.ModifyResidentDto;
+import com.academy.certificate.domain.ResidentDto;
+import com.academy.certificate.domain.ModifyResidentDto;
+import com.academy.certificate.domain.ToBeResidentList;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.exception.ResidentNotFoundException;
 import com.academy.certificate.service.ResidentService;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
+import java.util.List;
 
 @RestController
 @RequestMapping("/residents")
@@ -38,5 +42,17 @@ public class ResidentController {
         }
 
         return residentService.modifyResidentInfo(serialNumber, modifyResidentDto);
+    }
+
+    /*주민 목록*/
+    @GetMapping()
+    public ModelAndView getResidentsList(Pageable pageable){
+        List<ToBeResidentList> residents = residentService.getAllResidents(pageable).getContent();
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("residents");
+        modelAndView.addObject("residents", residents);
+
+        return modelAndView;
+
     }
 }

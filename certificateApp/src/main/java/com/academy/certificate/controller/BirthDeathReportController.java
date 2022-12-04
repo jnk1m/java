@@ -1,9 +1,8 @@
 package com.academy.certificate.controller;
 
-import com.academy.certificate.dto.BirthReportDto;
-import com.academy.certificate.dto.FamilyRelationshipDto;
-import com.academy.certificate.dto.ResidentDto;
-import com.academy.certificate.entity.BirthDeathReportResident;
+import com.academy.certificate.domain.BirthReportDto;
+import com.academy.certificate.domain.FamilyRelationshipDto;
+import com.academy.certificate.domain.ResidentDto;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.enums.FamilyRelationshipCode;
 import com.academy.certificate.exception.ResidentNotFoundException;
@@ -16,8 +15,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import javax.validation.ValidationException;
-import java.util.Objects;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/residents/{serialNumber}") //{serialNumber} : 행위자의 주민 일련번호

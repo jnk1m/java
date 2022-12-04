@@ -1,10 +1,12 @@
 package com.academy.certificate.service;
 
-import com.academy.certificate.dto.ModifyFamilyRelationshipDto;
-import com.academy.certificate.dto.ResidentDto;
-import com.academy.certificate.dto.ModifyResidentDto;
+import com.academy.certificate.domain.ResidentDto;
+import com.academy.certificate.domain.ModifyResidentDto;
+import com.academy.certificate.domain.ToBeResidentList;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.exception.ResidentNotFoundException;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
 import java.util.Optional;
 
@@ -18,4 +20,7 @@ public interface ResidentService {
 
     int modifyResidentInfo(Long serialNumber, ModifyResidentDto modifyResidentDto) throws ResidentNotFoundException;
 
+//    List<Resident> getAllResidents();
+
+    Page<ToBeResidentList> getAllResidents(Pageable pageable);
 }

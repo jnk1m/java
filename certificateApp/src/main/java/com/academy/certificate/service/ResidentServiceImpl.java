@@ -1,12 +1,14 @@
 package com.academy.certificate.service;
 
-import com.academy.certificate.dto.BirthReportDto;
-import com.academy.certificate.dto.ResidentDto;
-import com.academy.certificate.dto.ModifyResidentDto;
+import com.academy.certificate.domain.ModifyResidentDto;
+import com.academy.certificate.domain.ResidentDto;
+import com.academy.certificate.domain.ToBeResidentList;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.enums.GenderCode;
 import com.academy.certificate.exception.ResidentNotFoundException;
 import com.academy.certificate.repository.ResidentRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -35,6 +37,8 @@ public class ResidentServiceImpl implements ResidentService {
 
         return residentRepository.findById(serialNumber);
     }
+
+
 
     @Transactional
     @Override
@@ -83,13 +87,19 @@ public class ResidentServiceImpl implements ResidentService {
         return modifyResult;
     }
 
+    @Override
+    public Page<ToBeResidentList> getAllResidents(Pageable pageable) {
+        return residentRepository.getAllBy(pageable);
+    }
+
+
     /*주민 등록 시 필요한 주민 등록 번호를 생성*/
-    private String generateResidentRegistrationNum(ResidentDto dto){
+    private String generateResidentRegistrationNum(ResidentDto dto) {
         String[] splitRegistrationNum = dto.getBirthDate().toString().split("-");
         StringBuilder registrationNum = new StringBuilder();
         registrationNum.append(splitRegistrationNum[0].substring(2))
                 .append(splitRegistrationNum[1])
-                .append(splitRegistrationNum[2].substring(0,2))
+                .append(splitRegistrationNum[2].substring(0, 2))
                 .append("-");
 
         generateGenderCode(dto, splitRegistrationNum, registrationNum);
@@ -101,23 +111,23 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     private void generateGenderCode(ResidentDto dto, String[] splitRegistrationNum, StringBuilder registrationNum) {
-        if(splitRegistrationNum[0].startsWith("1")){
-            if(Objects.equals(dto.getGenderCode().getValue(), "남")){
+        if (splitRegistrationNum[0].startsWith("1")) {
+            if (Objects.equals(dto.getGenderCode().getValue(), "남")) {
                 registrationNum.append("1");
             }
         }
-        if(splitRegistrationNum[0].startsWith("1")){
-            if(Objects.equals(dto.getGenderCode().getValue(), "여")){
+        if (splitRegistrationNum[0].startsWith("1")) {
+            if (Objects.equals(dto.getGenderCode().getValue(), "여")) {
                 registrationNum.append("2");
             }
         }
-        if(splitRegistrationNum[0].startsWith("2")){
-            if(Objects.equals(dto.getGenderCode().getValue(), "남")){
+        if (splitRegistrationNum[0].startsWith("2")) {
+            if (Objects.equals(dto.getGenderCode().getValue(), "남")) {
                 registrationNum.append("3");
             }
         }
-        if(splitRegistrationNum[0].startsWith("2")){
-            if(Objects.equals(dto.getGenderCode().getValue(), "여")){
+        if (splitRegistrationNum[0].startsWith("2")) {
+            if (Objects.equals(dto.getGenderCode().getValue(), "여")) {
                 registrationNum.append("4");
             }
         }

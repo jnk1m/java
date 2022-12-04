@@ -1,7 +1,7 @@
 package com.academy.certificate.service;
 
-import com.academy.certificate.dto.FamilyRelationshipDto;
-import com.academy.certificate.dto.ModifyFamilyRelationshipDto;
+import com.academy.certificate.domain.FamilyRelationshipDto;
+import com.academy.certificate.domain.ModifyFamilyRelationshipDto;
 import com.academy.certificate.entity.FamilyRelationship;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.exception.FamilyRelationshipNotFoundException;

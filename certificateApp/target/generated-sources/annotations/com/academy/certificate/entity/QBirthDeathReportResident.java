@@ -24,9 +24,9 @@ public class QBirthDeathReportResident extends EntityPathBase<BirthDeathReportRe
 
     public final DatePath<java.time.LocalDate> birthDeathReportDate = createDate("birthDeathReportDate", java.time.LocalDate.class);
 
-    public final StringPath birthReportQualificationsCode = createString("birthReportQualificationsCode");
+    public final EnumPath<com.academy.certificate.enums.BirthReportQualificationsCode> birthReportQualificationsCode = createEnum("birthReportQualificationsCode", com.academy.certificate.enums.BirthReportQualificationsCode.class);
 
-    public final StringPath deathReportQualificationsCode = createString("deathReportQualificationsCode");
+    public final EnumPath<com.academy.certificate.enums.DeathReportQualificationsCode> deathReportQualificationsCode = createEnum("deathReportQualificationsCode", com.academy.certificate.enums.DeathReportQualificationsCode.class);
 
     public final StringPath emailAddress = createString("emailAddress");
 
@@ -34,7 +34,7 @@ public class QBirthDeathReportResident extends EntityPathBase<BirthDeathReportRe
 
     public final QBirthDeathReportResident_Pk pk;
 
-    public final QResident resident;
+    public final QResident reportResidentSerialNumber;
 
     public QBirthDeathReportResident(String variable) {
         this(BirthDeathReportResident.class, forVariable(variable), INITS);
@@ -55,7 +55,7 @@ public class QBirthDeathReportResident extends EntityPathBase<BirthDeathReportRe
     public QBirthDeathReportResident(Class<? extends BirthDeathReportResident> type, PathMetadata metadata, PathInits inits) {
         super(type, metadata, inits);
         this.pk = inits.isInitialized("pk") ? new QBirthDeathReportResident_Pk(forProperty("pk")) : null;
-        this.resident = inits.isInitialized("resident") ? new QResident(forProperty("resident")) : null;
+        this.reportResidentSerialNumber = inits.isInitialized("reportResidentSerialNumber") ? new QResident(forProperty("reportResidentSerialNumber")) : null;
     }
 
 }

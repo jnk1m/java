@@ -27,7 +27,7 @@ public class QResident extends EntityPathBase<Resident> {
 
     public final StringPath deathPlaceAddress = createString("deathPlaceAddress");
 
-    public final StringPath deathPlaceCode = createString("deathPlaceCode");
+    public final EnumPath<com.academy.certificate.enums.DeathPlaceCode> deathPlaceCode = createEnum("deathPlaceCode", com.academy.certificate.enums.DeathPlaceCode.class);
 
     public final EnumPath<com.academy.certificate.enums.GenderCode> genderCode = createEnum("genderCode", com.academy.certificate.enums.GenderCode.class);
 
