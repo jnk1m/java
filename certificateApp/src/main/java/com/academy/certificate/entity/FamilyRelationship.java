@@ -15,6 +15,7 @@ import java.io.Serializable;
 @Table(name = "family_relationship")
 @AllArgsConstructor
 public class FamilyRelationship {
+
     @EmbeddedId
     private Pk pk;
 
@@ -26,6 +27,11 @@ public class FamilyRelationship {
     @ManyToOne
     @JoinColumn(name = "base_resident_serial_number", referencedColumnName = "resident_serial_number")
     private Resident resident;
+
+    public FamilyRelationship(FamilyRelationshipCode familyRelationshipCode, Resident resident) {
+        this.familyRelationshipCode = familyRelationshipCode;
+        this.resident = resident;
+    }
 
 
     @NoArgsConstructor
