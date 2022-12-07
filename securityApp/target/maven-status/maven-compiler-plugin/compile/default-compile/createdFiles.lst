@@ -18,6 +18,7 @@ com/academy/security/domain/MemberRegisterRequest.class
 com/academy/security/controller/MemberRestController.class
 com/academy/security/config/RedisConfig.class
 com/academy/security/repository/RepositoryBase.class
+com/academy/security/SessionInitializer.class
 com/academy/security/config/JpgConfig.class
 com/academy/security/domain/MemberDto.class
 com/academy/security/entity/Member.class

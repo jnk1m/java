@@ -2,6 +2,7 @@
 /Users/jieunkim/Documents/GitHub/java/securityApp/src/main/java/com/academy/security/util/PasswordUtils.java
 /Users/jieunkim/Documents/GitHub/java/securityApp/src/main/java/com/academy/security/service/MemberServiceImpl.java
 /Users/jieunkim/Documents/GitHub/java/securityApp/src/main/java/com/academy/security/controller/ControllerBase.java
+/Users/jieunkim/Documents/GitHub/java/securityApp/src/main/java/com/academy/security/SessionInitializer.java
 /Users/jieunkim/Documents/GitHub/java/securityApp/src/main/java/com/academy/security/SecurityInitializer.java
 /Users/jieunkim/Documents/GitHub/java/securityApp/src/main/java/com/academy/security/config/SecurityConfig.java
 /Users/jieunkim/Documents/GitHub/java/securityApp/src/main/java/com/academy/security/entity/Authority.java

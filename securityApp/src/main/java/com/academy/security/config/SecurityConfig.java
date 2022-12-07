@@ -43,6 +43,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .anyRequest().requiresInsecure()
                 .and()
 
+                .oauth2Login()
+//                .loginPage("/github/login")
+                .clientRegistrationRepository(clientRegistrationRepository())
+                .authorizedClientService(authorizedClientService())
+                .and()
+
                 .formLogin()
                 .usernameParameter("userId")
                 .passwordParameter("password")
@@ -50,13 +56,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/login")
                 .failureUrl("/login")
-                .successHandler(loginSuccessHandler(null))
-                .and()
-
-                .oauth2Login()
-                .loginPage("/github/login")
-                .clientRegistrationRepository(clientRegistrationRepository())
-                .authorizedClientService(authorizedClientService())
+                .successHandler(loginSuccessHandler())
                 .and()
 
                 .logout()
@@ -102,8 +102,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Bean
-    public AuthenticationSuccessHandler loginSuccessHandler(RedisTemplate<String, String> redisTemplate){
-        return new LoginSuccessHandler(redisTemplate);
+    public AuthenticationSuccessHandler loginSuccessHandler(){
+        return new LoginSuccessHandler();
     }
     @Bean
     public PasswordEncoder passwordEncoder() {

@@ -10,7 +10,5 @@ public class MemberDto {
 
     private String pwd;
 
-//    private String salt;
-
     private String authority;
 }
