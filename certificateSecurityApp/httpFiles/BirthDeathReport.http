@@ -1,0 +1,33 @@
+POST http://localhost:9000/residents/17/birth
+Content-Type: application/json
+
+{
+  "birthDeathTypeCode":"출생",
+  "birthDeathReportDate":"1992-08-23",
+  "birthReportQualificationsCode":"부",
+  "emailAddress":"nirvana@nirvana.com",
+  "phoneNumber":"010-1234-1234",
+  "name":"프란시스 코베인",
+  "genderCode":"여",
+  "birthDate":"1992-08-18 21:25:20",
+  "birthPlaceCode":"병원",
+  "registrationBaseAddress":"서울특별시 강서구 염창로 207",
+  "mother":18,
+  "father":17
+
+}
+
+###
+
+PUT http://localhost:9000/residents/23/birth/24
+Content-Type: application/json
+
+{
+  "emailAddress":"nirvana@nirvana.com",
+  "phoneNumber":"010-1234-1234",
+  "name":"프란시스 코베인",
+  "genderCode":"여",
+  "birthDate":"1992-08-18 21:25:20",
+  "birthPlaceCode":"병원",
+  "registrationBaseAddress":"서울특별시 강서구 염창로 207"
+}

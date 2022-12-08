@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>주민 목록</title>
+</head>
+<body>
+<h1>주민 목록</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>일련 번호</th>
+        <th>이름</th>
+        <th>생일</th>
+        <th>증명서</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${residents == null}">
+        <td colspan="5"> 등록된 주민 없음</td>
+    </tr>
+    <tr th:each="resident : ${residents}">
+        <td><span th:text="${resident.residentSerialNumber}"></span></td>
+        <td><span th:text="${resident.name}"></span></td>
+        <td><span th:text="${resident.birthDate}"></span></td>
+        <td>
+            <button th:onclick="|location.href='@{certifications(id=${resident.residentSerialNumber})}'|">조회발급</button>
+        </td>
+        <td>
+            <button th:onclick="|location.href='@{certifications(id=${resident.residentSerialNumber})}'|">삭제</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+
+</body>
+</html>

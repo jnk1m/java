@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Login</title>
+</head>
+<body>
+    <form method="post" action="/login">
+        ID: <input type="text" name="userId" /><br />
+        Password: <input type="password" name="pwd" /><br />
+<!--        <a href="/login">GitHub Login</a>-->
+
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="submit" />
+    </form>
+</body>
+</html>

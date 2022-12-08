@@ -1,0 +1,24 @@
+POST http://localhost:8090/residents HTTP/1.1
+Content-Type: application/json
+
+{
+  "name": "홍길동",
+  "genderCode": "남",
+  "birthDate": "1964-07-09 11:20:20",
+  "birthPlaceCode": "자택",
+  "registrationBaseAddress": "인천광역시 계양구 하늘길 102",
+  "userId": "ghdrlfehd",
+  "email": "rlfehd@naver.com",
+  "password": "rlfehddl1234"
+}
+
+###
+
+PUT http://localhost:9000/residents/10 HTTP/1.1
+Content-Type: application/json
+
+{
+  "genderCode": "남"
+}
+
+
