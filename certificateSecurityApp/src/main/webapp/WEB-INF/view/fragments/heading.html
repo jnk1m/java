@@ -5,13 +5,13 @@
     <span sec:authentication="name" />
     <a href="/auth/logout">Logout</a>
 </div>
-<!--<div sec:authorize="!isAuthenticated()">-->
-<!--    <a href="/redirect-index">github login</a>-->
-<!--</div>-->
-<!--<a href="/auth/login">login</a>-->
 <div sec:authorize="!isAuthenticated()">
-    <a href="/auth/login">Login</a>
+    <a href="/github/login">github login</a>
 </div>
+<a href="/auth/login">login</a>
+<!--<div sec:authorize="!isAuthenticated()">-->
+<!--    <a href="/auth/login">Login</a>-->
+<!--</div>-->
 
 <br />
 <a href="/">Go to Main</a>

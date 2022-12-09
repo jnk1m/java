@@ -7,11 +7,7 @@ import com.academy.certificate.entity.Resident;
 import com.academy.certificate.exception.ResidentNotFoundException;
 import com.academy.certificate.service.ResidentService;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
@@ -63,13 +59,15 @@ public class ResidentController {
 
     @GetMapping()
     public ModelAndView getResidentsList(Pageable pageable, HttpServletRequest request){
-        String userId = (String)request.getSession().getAttribute("userId");
-        System.out.println("userId = " + userId);
+        String userId = residentService.getUserIdFromSecurityContextHolder();
 
-//        String username = (String)redisTemplate.opsForHash().get(sessionId, "username");
-
-
-        List<ToBeResidentList> residents = residentService.getAllResidents(pageable).getContent();
+        Resident resident = residentService.getResidentByUserId(userId);
+        List<ToBeResidentList> residents = residentService.getHouseholdCompositionResidents(resident.getResidentSerialNumber());
+        for (ToBeResidentList toBeResidentList : residents) {
+            System.out.println(toBeResidentList.getName()+"!!!!");
+            System.out.println(toBeResidentList.toString());
+        }
+//        List<ToBeResidentList> residents = residentService.getAllResidents(pageable).getContent();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("residents");
         modelAndView.addObject("residents", residents);

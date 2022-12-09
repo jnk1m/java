@@ -10,10 +10,14 @@ import com.academy.certificate.repository.ResidentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
@@ -21,12 +25,10 @@ import java.util.Optional;
 public class ResidentServiceImpl implements ResidentService {
     private final ResidentRepository residentRepository;
     private final PasswordEncoder passwordEncoder;
-    private final RedisTemplate<String, Object> redisTemplate;
 
-    public ResidentServiceImpl(ResidentRepository residentRepository, PasswordEncoder passwordEncoder, RedisTemplate<String, Object> redisTemplate) {
+    public ResidentServiceImpl(ResidentRepository residentRepository, PasswordEncoder passwordEncoder) {
         this.residentRepository = residentRepository;
         this.passwordEncoder = passwordEncoder;
-        this.redisTemplate = redisTemplate;
     }
 
     @Override
@@ -44,7 +46,10 @@ public class ResidentServiceImpl implements ResidentService {
         return residentRepository.findById(serialNumber);
     }
 
-
+    @Override
+    public Resident getResidentByUserId(String userId) throws ResidentNotFoundException {
+        return residentRepository.findByUserId(userId).orElseThrow(ResidentNotFoundException::new);
+    }
 
 
     @Transactional
@@ -98,6 +103,18 @@ public class ResidentServiceImpl implements ResidentService {
     @Override
     public Page<ToBeResidentList> getAllResidents(Pageable pageable) {
         return residentRepository.getAllBy(pageable);
+    }
+
+    @Override
+    public String getUserIdFromSecurityContextHolder() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+        return userDetails.getUsername();
+    }
+
+    @Override
+    public List<ToBeResidentList> getHouseholdCompositionResidents(Long residentSerialNumber) {
+        return residentRepository.getCompositionResidentList(residentSerialNumber);
     }
 
 

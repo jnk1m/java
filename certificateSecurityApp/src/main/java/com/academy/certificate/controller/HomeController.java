@@ -16,8 +16,7 @@ public class HomeController {
 
         Authentication a = SecurityContextHolder.getContext().getAuthentication();
         UserDetails userDetails = (UserDetails) a.getPrincipal();
-        userDetails.getAuthorities();
-        userDetails.getPassword();
+        String username = userDetails.getUsername();
 
 
     }

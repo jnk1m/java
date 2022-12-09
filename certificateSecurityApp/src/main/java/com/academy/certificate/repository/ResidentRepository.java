@@ -14,9 +14,10 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-public interface ResidentRepository extends JpaRepository<Resident, Long> {
+public interface ResidentRepository extends JpaRepository<Resident, Long>, ResidentRepositoryCustom {
 
     Optional<Resident> findByUserId(String userId);
+
 
     @Modifying
     @Transactional
@@ -38,8 +39,19 @@ public interface ResidentRepository extends JpaRepository<Resident, Long> {
     @Query("update Resident r set r.registrationBaseAddress = ?1 where r.residentSerialNumber = ?2 ")
     int modifyRegistrationBaseAddress(String registrationBaseAddress, Long serialNumber);
 
-//    List<Resident> getAllby(Pageable pageable);
-
     Page<ToBeResidentList> getAllBy(Pageable pageable);
+
+
+//    @Query("SELECT r.residentSerialNumber, r.name, r.genderCode " +
+//            "from Resident as r " +
+//            "INNER JOIN HouseholdCompositionResident hc on hc.pk.residentSerialNumber = r.residentSerialNumber " +
+//            "WHERE hc.pk.householdSerialNumber= ?1")
+//    List<ToBeResidentList> getCompositionResidentList(Long residentSerialNumber);
+
+    @Query("SELECT r.residentSerialNumber, r.name, r.genderCode " +
+            "from Resident as r " +
+            "INNER JOIN HouseholdCompositionResident hc on hc.pk.residentSerialNumber = r.residentSerialNumber " +
+            "WHERE hc.pk.householdSerialNumber= ?1")
+    List<ToBeResidentList> getCompositionResidentList(Long residentSerialNumber);
 
 }
