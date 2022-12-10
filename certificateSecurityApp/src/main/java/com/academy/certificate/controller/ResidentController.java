@@ -2,6 +2,7 @@ package com.academy.certificate.controller;
 
 import com.academy.certificate.domain.ResidentDto;
 import com.academy.certificate.domain.ModifyResidentDto;
+import com.academy.certificate.domain.ResidentListDto;
 import com.academy.certificate.domain.ToBeResidentList;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.exception.ResidentNotFoundException;
@@ -62,12 +63,13 @@ public class ResidentController {
         String userId = residentService.getUserIdFromSecurityContextHolder();
 
         Resident resident = residentService.getResidentByUserId(userId);
-        List<ToBeResidentList> residents = residentService.getHouseholdCompositionResidents(resident.getResidentSerialNumber());
-        for (ToBeResidentList toBeResidentList : residents) {
-            System.out.println(toBeResidentList.getName()+"!!!!");
-            System.out.println(toBeResidentList.toString());
-        }
-//        List<ToBeResidentList> residents = residentService.getAllResidents(pageable).getContent();
+
+        Long householdSerialNumber = residentService.getHouseholdSerialNumber(resident.getResidentSerialNumber());
+        System.out.println("householdSerialNumber = " + householdSerialNumber);
+
+        List<ToBeResidentList> residents = residentService.getHouseholdCompositionResidents(householdSerialNumber);
+
+//        List<ToBeResidentList> residents2 = residentService.getAllResidents(pageable).getContent();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("residents");
         modelAndView.addObject("residents", residents);

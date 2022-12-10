@@ -1,11 +1,13 @@
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/repository/BirthDeathReportResidentRepositoryCustom.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/domain/ModifyBirthReportDto.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/repository/BirthDeathReportResidentRepositoryImpl.java
+/Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/repository/ResidentRepositoryCustom.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/domain/BirthReportDto.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/target/generated-sources/annotations/com/academy/certificate/entity/QCertificateIssue.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/controller/FamilyRelationshipController.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/service/ResidentServiceImpl.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/target/generated-sources/annotations/com/academy/certificate/entity/QFamilyRelationship.java
+/Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/controller/HomeController.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/domain/ModifyResidentDto.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/controller/CertificationController.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/target/generated-sources/annotations/com/academy/certificate/entity/QFamilyRelationship_Pk.java
@@ -26,11 +28,14 @@
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/entity/HouseholdCompositionResident.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/auth/LoginSuccessHandler.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/enums/GenderCode.java
+/Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/domain/GithubResponse.java
+/Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/domain/GithubEmail.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/target/generated-sources/annotations/com/academy/certificate/entity/QHouseholdCompositionResident.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/target/generated-sources/annotations/com/academy/certificate/entity/QBirthDeathReportResident.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/config/RootConfig.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/service/BirthDeathReportService.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/domain/ModifyFamilyRelationshipDto.java
+/Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/controller/OauthController.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/config/JpaConfig.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/service/ResidentDetailService.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/WebControllerAdvice.java
@@ -40,6 +45,7 @@
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/repository/RepositoryBase.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/service/BirthDeathReportServiceImpl.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/domain/ToBeResidentList.java
+/Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/repository/ResidentRepositoryImpl.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/entity/FamilyRelationship.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/repository/ResidentRepository.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/enums/DeathReportQualificationsCode.java

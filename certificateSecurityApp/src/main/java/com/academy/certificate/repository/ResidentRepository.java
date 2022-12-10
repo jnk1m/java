@@ -1,5 +1,6 @@
 package com.academy.certificate.repository;
 
+import com.academy.certificate.domain.ResidentListDto;
 import com.academy.certificate.domain.ToBeResidentList;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.enums.GenderCode;
@@ -14,7 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-public interface ResidentRepository extends JpaRepository<Resident, Long>, ResidentRepositoryCustom {
+public interface ResidentRepository extends JpaRepository<Resident, Long>{
 
     Optional<Resident> findByUserId(String userId);
 
@@ -48,10 +49,26 @@ public interface ResidentRepository extends JpaRepository<Resident, Long>, Resid
 //            "WHERE hc.pk.householdSerialNumber= ?1")
 //    List<ToBeResidentList> getCompositionResidentList(Long residentSerialNumber);
 
-    @Query("SELECT r.residentSerialNumber, r.name, r.genderCode " +
+    /*
+    Long getResidentSerialNumber();
+
+    String getName();
+
+    LocalDateTime getBirthDate();
+
+    String getGenderCode();
+     */
+    @Query("SELECT r.residentSerialNumber as residentSerialNumber, r.name as name, r.birthDate as birthDate, r.genderCode as genderCode " +
             "from Resident as r " +
             "INNER JOIN HouseholdCompositionResident hc on hc.pk.residentSerialNumber = r.residentSerialNumber " +
             "WHERE hc.pk.householdSerialNumber= ?1")
-    List<ToBeResidentList> getCompositionResidentList(Long residentSerialNumber);
+    @Transactional
+    List<ToBeResidentList> getCompositionResidentList(Long householdSerialNumber);
 
+    Optional<Resident> findByEmail(String email);
+
+    @Query("SELECT h.pk.householdSerialNumber FROM HouseholdCompositionResident h " +
+            "WHERE h.pk.residentSerialNumber = ?1")
+    @Transactional
+    Long getHouseholdSerialNumber(Long residentSerialNumber);
 }

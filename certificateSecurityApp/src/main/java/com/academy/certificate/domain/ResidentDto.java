@@ -33,7 +33,6 @@ public class ResidentDto {
 
     private String registrationBaseAddress;
 
-    /*1208 추가한 부분*/
     private String userId;
 
     private String password;

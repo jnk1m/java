@@ -2,6 +2,7 @@ package com.academy.certificate.service;
 
 import com.academy.certificate.domain.ModifyResidentDto;
 import com.academy.certificate.domain.ResidentDto;
+import com.academy.certificate.domain.ResidentListDto;
 import com.academy.certificate.domain.ToBeResidentList;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.enums.GenderCode;
@@ -11,12 +12,15 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
@@ -113,8 +117,21 @@ public class ResidentServiceImpl implements ResidentService {
     }
 
     @Override
-    public List<ToBeResidentList> getHouseholdCompositionResidents(Long residentSerialNumber) {
-        return residentRepository.getCompositionResidentList(residentSerialNumber);
+    public List<ToBeResidentList> getHouseholdCompositionResidents(Long householdSerialNumber) {
+        return residentRepository.getCompositionResidentList(householdSerialNumber);
+    }
+
+    @Override
+    public User getResidentByEmail(String email) {
+        Resident resident = residentRepository.findByEmail(email).orElseThrow(ResidentNotFoundException::new);
+        System.out.printf("!!!"+resident.getResidentSerialNumber());
+        System.out.printf("!!!"+resident.getUsername());
+        return new User(resident.getUsername(), resident.getPassword(), Collections.singletonList(new SimpleGrantedAuthority("USER")));
+    }
+
+    @Override
+    public Long getHouseholdSerialNumber(Long residentSerialNumber) {
+        return residentRepository.getHouseholdSerialNumber(residentSerialNumber);
     }
 
 

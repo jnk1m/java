@@ -11,6 +11,7 @@ com/academy/certificate/repository/HouseholdCompositionResidentRepository.class
 com/academy/certificate/entity/HouseholdCompositionResident.class
 com/academy/certificate/controller/BirthDeathReportController.class
 com/academy/certificate/repository/HouseholdRepository.class
+com/academy/certificate/controller/HomeController.class
 com/academy/certificate/domain/ModifyBirthReportDto.class
 com/academy/certificate/exception/ResidentNotFoundException.class
 com/academy/certificate/entity/BirthDeathReportResident$Pk.class
@@ -23,6 +24,7 @@ com/academy/certificate/entity/QFamilyRelationship.class
 com/academy/certificate/repository/CertificateIssueRepository.class
 com/academy/certificate/repository/RepositoryBase.class
 com/academy/certificate/entity/QFamilyRelationship_Pk.class
+com/academy/certificate/controller/OauthController.class
 com/academy/certificate/config/JpaConfig.class
 com/academy/certificate/entity/QHouseholdMovementAddress.class
 com/academy/certificate/domain/ModifyFamilyRelationshipDto.class
@@ -49,10 +51,12 @@ com/academy/certificate/domain/ModifyResidentDto.class
 com/academy/certificate/repository/BirthDeathReportResidentRepositoryImpl.class
 com/academy/certificate/entity/SecurityResident.class
 com/academy/certificate/entity/CertificateIssue.class
+com/academy/certificate/domain/GithubResponse.class
 com/academy/certificate/service/ResidentService.class
 com/academy/certificate/repository/BirthDeathReportResidentRepositoryCustom.class
 com/academy/certificate/entity/QBirthDeathReportResident_Pk.class
 com/academy/certificate/entity/QResident.class
+com/academy/certificate/domain/GithubEmail.class
 com/academy/certificate/config/RedisConfig.class
 com/academy/certificate/repository/ResidentRepository.class
 com/academy/certificate/config/RootConfig.class
@@ -64,6 +68,7 @@ com/academy/certificate/enums/BirthReportQualificationsCode.class
 com/academy/certificate/service/BirthDeathReportService.class
 com/academy/certificate/service/FamilyRelationshipServiceImpl.class
 com/academy/certificate/Base.class
+com/academy/certificate/repository/ResidentRepositoryCustom.class
 com/academy/certificate/entity/FamilyRelationship$Pk.class
 com/academy/certificate/SecurityInitializer.class
 com/academy/certificate/entity/QBirthDeathReportResident.class

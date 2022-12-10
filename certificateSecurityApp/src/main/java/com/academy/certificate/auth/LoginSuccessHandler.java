@@ -1,6 +1,5 @@
 package com.academy.certificate.auth;
 
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.DefaultRedirectStrategy;
@@ -8,7 +7,6 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -28,17 +26,6 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response, Authentication authentication) throws ServletException, IOException {
         String sessionId = UUID.randomUUID().toString();
 
-//        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-//
-//
-//        redisTemplate.opsForHash().put(sessionId, "username", userDetails.getUsername());
-//
-//        Cookie cookie = new Cookie("SESSION", sessionId);
-//        cookie.setMaxAge(259200);
-//        response.addCookie(cookie);
-//
-//
-
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
 
         HttpSession session = request.getSession();
@@ -47,6 +34,5 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         redirectStrategy.sendRedirect(request, response, "/residents");
 
-//        super.onAuthenticationSuccess(request, response, authentication);
     }
 }

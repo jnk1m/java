@@ -35,7 +35,7 @@ public class QResident extends EntityPathBase<Resident> {
 
     public final StringPath name = createString("name");
 
-    public final StringPath password = createString("password");
+    public final StringPath pwd = createString("pwd");
 
     public final StringPath registrationBaseAddress = createString("registrationBaseAddress");
 
