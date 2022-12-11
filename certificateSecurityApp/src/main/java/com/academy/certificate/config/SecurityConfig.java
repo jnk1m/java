@@ -4,7 +4,6 @@ import com.academy.certificate.auth.LoginSuccessHandler;
 import com.academy.certificate.service.ResidentDetailService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -37,12 +36,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
 
                 .logout()
-                .logoutSuccessUrl("/auth/login")
+                .logoutSuccessUrl("/")
                 .invalidateHttpSession(true)
                 .deleteCookies("SESSION")
                 .and()
+
                 .csrf()
                 .and()
+
                 .sessionManagement()
                 .sessionFixation()
                 .none()
@@ -84,31 +85,5 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
-    /*
-
-    @Bean
-    public AuthenticationSuccessHandler loginSuccessHandler(){
-        return new LoginSuccessHandler();
-    }
-
-    private ClientRegistration github() {
-        return CommonOAuth2Provider.GITHUB.getBuilder("github")
-                .userNameAttributeName("name")
-                .clientId("2f7a621dfd6cebf349d9")
-                .clientSecret("d08bcdbb5b735b4e7d88fe1b5d64d492cbdbd896")
-                .build();
-    }
-
-    @Bean
-    public ClientRegistrationRepository clientRegistrationRepository() {
-        return new InMemoryClientRegistrationRepository(github());
-    }
-
-    @Bean
-    public OAuth2AuthorizedClientService authorizedClientService() {
-        return new InMemoryOAuth2AuthorizedClientService(clientRegistrationRepository());
-    }
-
-    */
 
 }

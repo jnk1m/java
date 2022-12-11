@@ -68,7 +68,6 @@ com/academy/certificate/enums/BirthReportQualificationsCode.class
 com/academy/certificate/service/BirthDeathReportService.class
 com/academy/certificate/service/FamilyRelationshipServiceImpl.class
 com/academy/certificate/Base.class
-com/academy/certificate/repository/ResidentRepositoryCustom.class
 com/academy/certificate/entity/FamilyRelationship$Pk.class
 com/academy/certificate/SecurityInitializer.class
 com/academy/certificate/entity/QBirthDeathReportResident.class

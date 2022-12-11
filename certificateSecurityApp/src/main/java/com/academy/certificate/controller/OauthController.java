@@ -11,7 +11,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,10 +18,7 @@ import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 import java.util.Collections;
-import java.util.UUID;
 
 @Controller
 public class OauthController {
@@ -54,7 +50,7 @@ public class OauthController {
 
 
     @GetMapping("/login/oauth2/code/github")
-    public String getEmail(@RequestParam("code") String code, HttpServletRequest request) {
+    public String doFinishLoginProcess(@RequestParam("code") String code) {
         uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("https")
                 .host("github.com")
@@ -103,20 +99,6 @@ public class OauthController {
 
         return usernamePasswordAuthenticationToken;
     }
-
-//    private void loginSuccessHandle(UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken,
-//                                    HttpServletRequest request) {
-//        String sessionId = UUID.randomUUID().toString();
-//        System.out.println("sessionId 2 = " + sessionId);
-//
-//        UserDetails userDetails = (UserDetails) usernamePasswordAuthenticationToken.getPrincipal();
-//
-//        HttpSession session = request.getSession();
-//        session.setAttribute("sessionId", sessionId);
-//        session.setAttribute("authority", userDetails.getAuthorities());
-//
-//
-//    }
 
 
 }

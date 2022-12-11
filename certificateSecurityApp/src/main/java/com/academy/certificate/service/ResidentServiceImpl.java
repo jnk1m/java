@@ -2,7 +2,6 @@ package com.academy.certificate.service;
 
 import com.academy.certificate.domain.ModifyResidentDto;
 import com.academy.certificate.domain.ResidentDto;
-import com.academy.certificate.domain.ResidentListDto;
 import com.academy.certificate.domain.ToBeResidentList;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.enums.GenderCode;
@@ -10,7 +9,6 @@ import com.academy.certificate.exception.ResidentNotFoundException;
 import com.academy.certificate.repository.ResidentRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -109,6 +107,7 @@ public class ResidentServiceImpl implements ResidentService {
         return residentRepository.getAllBy(pageable);
     }
 
+    /*SecurityContextHolder에서 사용자 ID를 가져오는 메소드*/
     @Override
     public String getUserIdFromSecurityContextHolder() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
@@ -116,19 +115,20 @@ public class ResidentServiceImpl implements ResidentService {
         return userDetails.getUsername();
     }
 
+    /*로그인한 본인의 세대 목록을 가져오는 메소드*/
     @Override
     public List<ToBeResidentList> getHouseholdCompositionResidents(Long householdSerialNumber) {
         return residentRepository.getCompositionResidentList(householdSerialNumber);
     }
 
+    /*OAuth 로그인을 위해 이메일로 주민을 가져오는 메소드*/
     @Override
     public User getResidentByEmail(String email) {
         Resident resident = residentRepository.findByEmail(email).orElseThrow(ResidentNotFoundException::new);
-        System.out.printf("!!!"+resident.getResidentSerialNumber());
-        System.out.printf("!!!"+resident.getUsername());
         return new User(resident.getUsername(), resident.getPassword(), Collections.singletonList(new SimpleGrantedAuthority("USER")));
     }
 
+    /*로그인한 회원의 세대주를 가져오는 메소드*/
     @Override
     public Long getHouseholdSerialNumber(Long residentSerialNumber) {
         return residentRepository.getHouseholdSerialNumber(residentSerialNumber);

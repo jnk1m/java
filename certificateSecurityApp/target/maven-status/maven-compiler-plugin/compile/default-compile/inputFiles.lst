@@ -1,7 +1,6 @@
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/repository/BirthDeathReportResidentRepositoryCustom.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/domain/ModifyBirthReportDto.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/repository/BirthDeathReportResidentRepositoryImpl.java
-/Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/repository/ResidentRepositoryCustom.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/domain/BirthReportDto.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/target/generated-sources/annotations/com/academy/certificate/entity/QCertificateIssue.java
 /Users/jieunkim/Documents/GitHub/java/certificateSecurityApp/src/main/java/com/academy/certificate/controller/FamilyRelationshipController.java

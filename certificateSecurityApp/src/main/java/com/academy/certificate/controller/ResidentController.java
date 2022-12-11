@@ -1,8 +1,7 @@
 package com.academy.certificate.controller;
 
-import com.academy.certificate.domain.ResidentDto;
 import com.academy.certificate.domain.ModifyResidentDto;
-import com.academy.certificate.domain.ResidentListDto;
+import com.academy.certificate.domain.ResidentDto;
 import com.academy.certificate.domain.ToBeResidentList;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.exception.ResidentNotFoundException;
@@ -37,8 +36,8 @@ public class ResidentController {
     /*주민 수정*/
     @PutMapping("/{serialNumber}")
     public int doModifyResident(@PathVariable Long serialNumber,
-                                 @Valid @RequestBody ModifyResidentDto modifyResidentDto,
-                                 BindingResult bindingResult) throws ResidentNotFoundException {
+                                @Valid @RequestBody ModifyResidentDto modifyResidentDto,
+                                BindingResult bindingResult) throws ResidentNotFoundException {
         if (bindingResult.hasErrors()) {
             throw new ValidationException("주민등록번호 뒷자리 7글자만 수정 가능합니다.");
         }
@@ -47,19 +46,10 @@ public class ResidentController {
         return residentService.modifyResidentInfo(serialNumber, modifyResidentDto);
     }
 
-    /*주민 목록
-    @GetMapping()
-    public ModelAndView getResidentsList(Pageable pageable){
-        List<ToBeResidentList> residents = residentService.getAllResidents(pageable).getContent();
-        ModelAndView modelAndView = new ModelAndView();
-        modelAndView.setViewName("residents");
-        modelAndView.addObject("residents", residents);
-
-        return modelAndView;
-    }*/
+    /*주민 목록*/
 
     @GetMapping()
-    public ModelAndView getResidentsList(Pageable pageable, HttpServletRequest request){
+    public ModelAndView getResidentsList() {
         String userId = residentService.getUserIdFromSecurityContextHolder();
 
         Resident resident = residentService.getResidentByUserId(userId);
@@ -69,7 +59,6 @@ public class ResidentController {
 
         List<ToBeResidentList> residents = residentService.getHouseholdCompositionResidents(householdSerialNumber);
 
-//        List<ToBeResidentList> residents2 = residentService.getAllResidents(pageable).getContent();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("residents");
         modelAndView.addObject("residents", residents);

@@ -1,8 +1,7 @@
 package com.academy.certificate.service;
 
-import com.academy.certificate.domain.ResidentDto;
 import com.academy.certificate.domain.ModifyResidentDto;
-import com.academy.certificate.domain.ResidentListDto;
+import com.academy.certificate.domain.ResidentDto;
 import com.academy.certificate.domain.ToBeResidentList;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.exception.ResidentNotFoundException;
@@ -15,8 +14,10 @@ import java.util.Optional;
 
 public interface ResidentService {
 
-    void checkExistResident(Long serialNumber)throws ResidentNotFoundException;
+    void checkExistResident(Long serialNumber) throws ResidentNotFoundException;
+
     Optional<Resident> getResident(Long serialNumber) throws ResidentNotFoundException;
+
     Resident getResidentByUserId(String userId) throws ResidentNotFoundException;
 
     Resident registerResident(ResidentDto residentDto);

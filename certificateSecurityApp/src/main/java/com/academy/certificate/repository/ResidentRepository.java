@@ -1,6 +1,5 @@
 package com.academy.certificate.repository;
 
-import com.academy.certificate.domain.ResidentListDto;
 import com.academy.certificate.domain.ToBeResidentList;
 import com.academy.certificate.entity.Resident;
 import com.academy.certificate.enums.GenderCode;
@@ -15,7 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.Optional;
 
-public interface ResidentRepository extends JpaRepository<Resident, Long>{
+public interface ResidentRepository extends JpaRepository<Resident, Long> {
 
     Optional<Resident> findByUserId(String userId);
 
@@ -23,7 +22,7 @@ public interface ResidentRepository extends JpaRepository<Resident, Long>{
     @Modifying
     @Transactional
     @Query("update Resident r set r.name = ?1 where r.residentSerialNumber = ?2 ")
-    int modifyName(@Param("name")String name, @Param("serialNumber") Long serialNumber);
+    int modifyName(@Param("name") String name, @Param("serialNumber") Long serialNumber);
 
     @Modifying
     @Transactional
@@ -42,22 +41,6 @@ public interface ResidentRepository extends JpaRepository<Resident, Long>{
 
     Page<ToBeResidentList> getAllBy(Pageable pageable);
 
-
-//    @Query("SELECT r.residentSerialNumber, r.name, r.genderCode " +
-//            "from Resident as r " +
-//            "INNER JOIN HouseholdCompositionResident hc on hc.pk.residentSerialNumber = r.residentSerialNumber " +
-//            "WHERE hc.pk.householdSerialNumber= ?1")
-//    List<ToBeResidentList> getCompositionResidentList(Long residentSerialNumber);
-
-    /*
-    Long getResidentSerialNumber();
-
-    String getName();
-
-    LocalDateTime getBirthDate();
-
-    String getGenderCode();
-     */
     @Query("SELECT r.residentSerialNumber as residentSerialNumber, r.name as name, r.birthDate as birthDate, r.genderCode as genderCode " +
             "from Resident as r " +
             "INNER JOIN HouseholdCompositionResident hc on hc.pk.residentSerialNumber = r.residentSerialNumber " +

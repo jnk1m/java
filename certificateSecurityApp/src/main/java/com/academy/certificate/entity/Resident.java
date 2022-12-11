@@ -61,17 +61,6 @@ public class Resident implements UserDetails {
     @Column(name = "password")
     private String pwd;
 
-//    public Resident(String name, String residentRegistrationNumber,
-//                    GenderCode genderCode, LocalDateTime birthDate, BirthPlaceCode birthPlaceCode,
-//                    String registrationBaseAddress) {
-//        this.name = name;
-//        this.residentRegistrationNumber = residentRegistrationNumber;
-//        this.genderCode = genderCode;
-//        this.birthDate = birthDate;
-//        this.birthPlaceCode = birthPlaceCode;
-//        this.registrationBaseAddress = registrationBaseAddress;
-//    }
-
 
     public Resident(String name, String residentRegistrationNumber,
                     GenderCode genderCode, LocalDateTime birthDate, BirthPlaceCode birthPlaceCode,
