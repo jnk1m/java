@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>게시글 상세보기</title>
+</head>
+<body>
+<h2>게시글 상세보기</h2>
+<table border="1">
+    <tr>
+        <td>번호</td>
+        <td><span th:text="${post.postId}"></span></td>
+    </tr>
+    <tr>
+        <td>제목</td>
+        <td><span th:text="${post.title}"></span></td>
+    </tr>
+    <tr>
+        <td>내용</td>
+        <td><span th:text="${post.content}"></span></td>
+    </tr>
+    <tr>
+        <td>작성자</td>
+        <td><span th:text="${post.createdBy.getUsername()}"></span></td>
+    </tr>
+
+    <tr th:if="${post.updatedBy != null }">
+        <td>수정자</td>
+        <td><span th:text="${post.updatedBy.getUsername()}"></span></td>
+    </tr>
+    <tr>
+        <td>작성일시</td>
+        <td><span th:text="${post.createdAt}"></span></td>
+    </tr>
+    <tr th:if="${post.updatedAt != null }">
+        <td>수정일시</td>
+        <td><span th:text="${post.updatedAt}"></span></td>
+    </tr>
+</table>
+<br/>
+
+좋아요 개수: <span th:text="${post.likeList.size()}"></span><br/><br/>
+<button th:onclick="|location.href='@{/like}'|">좋아요</button><br/>
+
+
+<button th:onclick="|location.href='@{/posts}'|">목록으로</button>
+<button th:onclick="|location.href='@{update(id=${post.postId})}'|">글 수정</button>
+<button th:onclick="|location.href='@{delete(id=${post.postId})}'|">글 삭제</button>
+<br/><br/>
+
+
+<h3>댓글</h3>
+
+<form action="/community/writeComment" method="post">
+    <table border="1">
+        <thead>
+        <tr>
+            <th>
+                댓글 작성
+            </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>
+                <textarea name="content" rows="8" cols="50" maxlength="150"></textarea>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <input type="hidden" name="postId" th:value="${post.postId}">
+    <input type="submit" value="저장">
+</form>
+<br/>
+<table border="1">
+    <thead>
+    <tr>
+        <th>내용</th>
+        <th>작성자</th>
+        <th>작성일</th>
+        <th>관리</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${post.commentList.size() == 0}">
+        <td colspan="4"> 댓글 없음</td>
+    </tr>
+
+    <tr th:each="comment : ${post.getCommentList()}">
+        <td><span th:text="${comment.content}"></span></td>
+        <td><span th:text="${comment.createdBy.getUsername()}"></span></td>
+        <td><span th:text="${comment.createdAt}"></span></td>
+
+
+        <td>
+            <button th:onclick="|location.href='@{updateComment(id=${comment.commentId})}'|">수정</button>
+            <button th:onclick="|location.href='@{deleteComment(id=${comment.commentId})}'|">삭제</button>
+        </td>
+    </tr>
+
+    </tbody>
+
+</table>
+
+</body>
+</html>

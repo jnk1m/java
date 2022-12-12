@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Deleted Post List</title>
+</head>
+<body>
+<h1>삭제된 게시글 관리</h1>
+
+<table border="1">
+    <thead>
+    <tr>
+        <th>글번호</th>
+        <th>타이틀</th>
+        <th>작성자</th>
+        <th>수정자</th>
+        <th>작성일</th>
+        <th>댓글</th>
+        <th>관리</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:if="${deletedPosts == null}">
+        <td colspan="7"> 게시글 없음</td>
+    </tr>
+    <tr th:each="post : ${deletedPosts}">
+
+        <td><span th:text="${post.id}"></span></td>
+        <td><span th:text="${post.title}"></span></td>
+        <td><span th:text="${post.created_by}"></span></td>
+        <td>
+            <span th:text="${post.updated_by} ? ${post.updated_by} : '-'"></span>
+        </td>
+        <td><span th:text="${post.created_at}"></span></td>
+        <td><span th:text="${post.commentCount}"></span></td>
+        <td>
+            <button th:onclick="|location.href='@{restorePost(id=${post.id})}'|">복구</button>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<p><a th:href="@{/community/list}">게시글 목록으로</a></p>
+
+</body>
+</html>

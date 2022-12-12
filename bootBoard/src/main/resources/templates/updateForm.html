@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>글 수정하기</title>
+</head>
+<body>
+<h2>글 수정하기</h2>
+
+<form method="post" action="/community/update">
+    제목 : <input type="text" name="title" th:value="${post.get().getTitle()}" minlength="2" maxlength="50"/><br/>
+    내용 : <br/><textarea name="content" rows="10" cols="40" th:text="${post.get().getContent()}" minlength="2"
+                        maxlength="300"></textarea><br/>
+    <input type="hidden" name="id" th:value="${post.get().getId()}">
+    <input type="submit" value="저장"/>
+</form>
+<button th:onclick="|location.href='@{post(id=${post.get().getId()})}'|">취소</button>
+
+</body>
+</html>
