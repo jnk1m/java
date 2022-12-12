@@ -35,9 +35,15 @@ public class LoginController {
         }
 
         HttpSession session = request.getSession(true);
-
         session.setAttribute("LoginUser", user);
 
+        return "redirect:/posts";
+    }
+
+    @GetMapping("/logout")
+    public String doLogout(HttpServletRequest request) {
+        request.getSession(false).removeAttribute("LoginUser");
+        request.getSession(false).invalidate();
         return "redirect:/posts";
     }
 

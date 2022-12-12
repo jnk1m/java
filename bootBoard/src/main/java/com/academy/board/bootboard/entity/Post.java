@@ -45,10 +45,11 @@ public class Post {
     @OneToMany(mappedBy = "post", orphanRemoval = true)
     private List<Like> likeList;
 
-    public Post(String title, String content, User createdBy, LocalDateTime createdAt) {
+    public Post(String title, String content, User createdBy, LocalDateTime createdAt, boolean visibility) {
         this.title = title;
         this.content = content;
         this.createdBy = createdBy;
         this.createdAt = createdAt;
+        this.visibility = visibility;
     }
 }

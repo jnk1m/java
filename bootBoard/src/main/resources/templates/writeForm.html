@@ -6,12 +6,12 @@
 </head>
 <body>
 <h2>글 작성하기</h2>
-<form method="post" action="/community/write">
+<form method="post" action="/post/write">
     제목 : <input type="text" name="title" minlength="2" maxlength="50"/><br/>
     내용 : <br/><textarea name="content" rows="10" cols="40" minlength="2" maxlength="300"></textarea><br/>
     <input type="submit" value="저장"/>
 </form>
-<button th:onclick="|location.href='@{/community}'|">취소</button>
+<button th:onclick="|location.href='@{/posts}'|">취소</button>
 
 </body>
 </html>

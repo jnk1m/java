@@ -11,7 +11,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -38,8 +37,9 @@ public class PostServiceImpl implements PostService {
     }
 
     @Override
+    @Transactional
     public void writePost(String title, String content, int userId) {
         User user = userRepository.findById(userId).orElseThrow(RuntimeException::new);
-        postRepository.save(new Post(title,content,user, LocalDateTime.now()));
+        postRepository.save(new Post(title, content, user, LocalDateTime.now(), true));
     }
 }
