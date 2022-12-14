@@ -3,6 +3,7 @@ package com.academy.board.bootboard.entity;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -13,6 +14,7 @@ import java.util.List;
 @Table(name = "BoardPost")
 @Getter
 @NoArgsConstructor
+@DynamicInsert //테이블에 디폴트가 걸려 있으면 jpa에서 디폴트로 넣어주는..
 public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,6 +39,7 @@ public class Post {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
+
     private boolean visibility;
 
     @OneToMany(mappedBy = "postId")
@@ -45,11 +48,9 @@ public class Post {
     @OneToMany(mappedBy = "post", orphanRemoval = true)
     private List<Like> likeList;
 
-    public Post(String title, String content, User createdBy, LocalDateTime createdAt, boolean visibility) {
+    public Post(String title, String content, User createdBy) {
         this.title = title;
         this.content = content;
         this.createdBy = createdBy;
-        this.createdAt = createdAt;
-        this.visibility = visibility;
     }
 }

@@ -22,7 +22,7 @@ public class LoginController {
         return "loginForm";
     }
 
-    @PostMapping("/login")
+//    @PostMapping("/login")
     public String doLogin(@RequestParam("username") String username,
                           @RequestParam("password") String password,
                           HttpServletRequest request) throws LoginFailException{

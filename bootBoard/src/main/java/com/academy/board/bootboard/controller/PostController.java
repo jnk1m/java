@@ -25,9 +25,9 @@ public class PostController {
     @GetMapping("/posts")
     public String getPostsList(HttpServletRequest request, Model model) {
         List<Post> posts = postService.getVisiblePosts(true);
-        User user = (User) request.getSession().getAttribute("LoginUser");
+//        User user = (User) request.getSession().getAttribute("LoginUser");
 
-        model.addAttribute("user", user);
+//        model.addAttribute("user", user);
         model.addAttribute("posts", posts);
         return "postList";
     }
@@ -61,6 +61,7 @@ public class PostController {
     }
 
     private int getLoginUserId(HttpServletRequest request) {
+        request.getSession().getAttribute("userName");
         User user = (User) request.getSession().getAttribute("LoginUser");
         if (user == null) {
             throw new RuntimeException();

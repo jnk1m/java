@@ -23,8 +23,10 @@
         </tr>
     </table>
     <br/>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
     <input type="submit" value="로그인">
 </form>
+<button th:onclick="|location.href='@{/user/signup}'|">회원가입</button>
 
 </body>
 </html>

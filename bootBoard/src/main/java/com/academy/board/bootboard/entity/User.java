@@ -3,14 +3,15 @@ package com.academy.board.bootboard.entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "BoardUser")
 @Getter
-@AllArgsConstructor
 @NoArgsConstructor
+@DynamicInsert
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,5 +27,8 @@ public class User {
     @JoinColumn(name = "role", insertable = false, updatable = false)
     private Role role;
 
-
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 }

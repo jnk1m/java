@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="ko" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8">
     <title>Foo Fighters Forum</title>
@@ -9,13 +9,17 @@
 <h2>| F | o | o | F | i | g | h | t | e | r | s | F | o | r | u | m |</h2>
 <h1>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</h1>
 
-<span th:if="${user == null}">
+<div sec:authorize="!isAuthenticated()">
     <button th:onclick="|location.href='@{/login}'|">로그인</button>
-</span>
-<span th:if="${user != null}">
+    <button th:onclick="|location.href='@{/user/signup}'|">회원가입</button>
+</div>
+<div sec:authorize="isAuthenticated()">
     <button th:onclick="|location.href='@{/logout}'|">로그아웃</button>
-</span>
-<button th:onclick="|location.href='@{/post/write}'|">글 작성</button>
+    <button th:onclick="|location.href='@{/post/write}'|">글 작성</button>
+</div>
+<!--<span th:if="${user != null}">-->
+<!--    -->
+<!--</span>-->
 
 <b th:if="${user != null}">
     <span th:if="${user.getRole() == 1}">

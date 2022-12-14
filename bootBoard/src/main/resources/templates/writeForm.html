@@ -10,6 +10,7 @@
     제목 : <input type="text" name="title" minlength="2" maxlength="50"/><br/>
     내용 : <br/><textarea name="content" rows="10" cols="40" minlength="2" maxlength="300"></textarea><br/>
     <input type="submit" value="저장"/>
+    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
 </form>
 <button th:onclick="|location.href='@{/posts}'|">취소</button>
 
