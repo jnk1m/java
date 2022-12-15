@@ -3,12 +3,18 @@ package com.academy.openapi.openapi.controller;
 import com.academy.openapi.openapi.domain.AccountCreateRequest;
 import com.academy.openapi.openapi.domain.AccountDto;
 import lombok.RequiredArgsConstructor;
+import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import javax.validation.Valid;
+import javax.validation.ValidationException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
@@ -50,7 +56,18 @@ public class OpenApiController {
     }
 
     @PostMapping()
-    public ResponseEntity<AccountDto> createAccount(@RequestBody AccountCreateRequest accountCreateRequest) {
+    public ResponseEntity<AccountDto> createAccount(@Valid @RequestBody AccountCreateRequest accountCreateRequest,
+                                                    BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            FieldError fieldError = bindingResult.getFieldError();
+            String errorMessage = "validation error." +
+                    " field: " + fieldError.getField() +
+                    ", code: " + Arrays.toString(fieldError.getCodes()) +
+                    ", message : " + fieldError.getDefaultMessage();
+
+            System.out.println(errorMessage);
+            return ResponseEntity.badRequest().build();
+        }
         uriComponents = UriComponentsBuilder.newInstance()
                 .scheme("http")
                 .host("localhost")

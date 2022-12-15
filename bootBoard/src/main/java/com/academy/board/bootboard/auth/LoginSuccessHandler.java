@@ -7,7 +7,6 @@ import org.springframework.security.web.RedirectStrategy;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 
 import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -26,13 +25,10 @@ public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessH
 
         HttpSession session = request.getSession();
 
-        Cookie cookie = new Cookie("SESSION",sessionId);
-
         session.setAttribute("sessionId", sessionId);
-        session.setAttribute("userName", userDetails.getUsername());
+        session.setAttribute("userId", userDetails.getUsername());
         session.setAttribute("authority", userDetails.getAuthorities());
 
-        response.addCookie(cookie);
 
         redirectStrategy.sendRedirect(request, response, "/posts");
 

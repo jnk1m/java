@@ -5,8 +5,9 @@
     <title>글 작성하기</title>
 </head>
 <body>
+<th:block th:include="fragments/headingBannerOnly" />
 <h2>글 작성하기</h2>
-<form method="post" action="/post/write">
+<form method="post" action="/posts/write">
     제목 : <input type="text" name="title" minlength="2" maxlength="50"/><br/>
     내용 : <br/><textarea name="content" rows="10" cols="40" minlength="2" maxlength="300"></textarea><br/>
     <input type="submit" value="저장"/>

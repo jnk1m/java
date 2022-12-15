@@ -5,26 +5,14 @@
     <title>Foo Fighters Forum</title>
 </head>
 <body>
-<h1>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</h1>
-<h2>| F | o | o | F | i | g | h | t | e | r | s | F | o | r | u | m |</h2>
-<h1>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</h1>
+<th:block th:include="fragments/heading" />
 
-<div sec:authorize="!isAuthenticated()">
-    <button th:onclick="|location.href='@{/login}'|">로그인</button>
-    <button th:onclick="|location.href='@{/user/signup}'|">회원가입</button>
-</div>
-<div sec:authorize="isAuthenticated()">
-    <button th:onclick="|location.href='@{/logout}'|">로그아웃</button>
-    <button th:onclick="|location.href='@{/post/write}'|">글 작성</button>
-</div>
-<!--<span th:if="${user != null}">-->
-<!--    -->
-<!--</span>-->
+<!--<div sec:authorize="isAuthenticated()">-->
+<!--    <div sec:authentication="hasRole('ROLE_ADMIN')">-->
+<!--        <button th:onclick="|location.href='@{/admin/deletedPosts}'|">삭제된 게시글 관리</button>-->
+<!--    </div>-->
+<!--</div>-->
 
-<b th:if="${user != null}">
-    <span th:if="${user.getRole() == 1}">
-    <button th:onclick="|location.href='@{/admin/deletedPosts}'|">삭제된 게시글 관리</button>
-</span>
 </b><br/><br/>
 
 글 개수: <span th:text="${posts.size()}"></span>
@@ -46,7 +34,7 @@
     <tr th:each="post : ${posts}">
 
         <td><span th:text="${post.postId}"></span></td>
-        <td><a th:href="@{post(id=${post.postId})}" th:text="${post.title}"></a></td>
+        <td><a th:href="@{posts/{id}(id=${post.postId})}" th:text="${post.title}"></a></td>
         <td><span th:text="${post.commentList.size()}"></span></td>
         <td><span th:text="${post.createdBy.getUsername()}"></span></td>
         <td>

@@ -5,9 +5,7 @@
   <title>회원가입</title>
 </head>
 <body>
-<h1>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</h1>
-<h2>| F | o | o | F | i | g | h | t | e | r | s | F | o | r | u | m |</h2>
-<h1>+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+</h1>
+<th:block th:include="fragments/headingBannerOnly" />
 
 <h2>회원가입</h2>
 
@@ -25,6 +23,7 @@
   <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
   <input type="submit" value="저장">
 </form>
+<button th:onclick="|location.href='@{/posts}'|">취소</button>
 
 </body>
 </html>

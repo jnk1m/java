@@ -1,0 +1,4 @@
+GET http://localhost:9090/department-members?departmentId=L1001
+Accept: application/json
+
+

@@ -39,7 +39,6 @@ public class Post {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-
     private boolean visibility;
 
     @OneToMany(mappedBy = "postId")
@@ -48,9 +47,10 @@ public class Post {
     @OneToMany(mappedBy = "post", orphanRemoval = true)
     private List<Like> likeList;
 
-    public Post(String title, String content, User createdBy) {
+    public Post(String title, String content, User createdBy, boolean visibility) {
         this.title = title;
         this.content = content;
         this.createdBy = createdBy;
+        this.visibility = visibility;
     }
 }

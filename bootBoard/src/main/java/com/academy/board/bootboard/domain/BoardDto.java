@@ -7,7 +7,6 @@ import java.time.LocalDateTime;
 
 @Value
 public class BoardDto {
-
     int postId;
     String title;
     String createdBy;

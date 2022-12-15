@@ -10,7 +10,6 @@ import java.util.List;
 
 @Transactional(readOnly = true)
 public interface PostRepository extends JpaRepository<Post, Integer> {
-    int countByCreatedBy(User createdBy);
 
     @Query("select p from Post p where p.visibility = ?1 and p.createdBy = ?2")
     List<Post> findAllByVisibilityAndCreatedBy(boolean visibility, User createdBy);
