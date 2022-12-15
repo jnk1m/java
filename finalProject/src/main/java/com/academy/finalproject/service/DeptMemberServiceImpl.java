@@ -12,11 +12,6 @@ import java.util.List;
 public class DeptMemberServiceImpl implements DeptMemberService {
     private final DeptMemberRepository deptMemberRepository;
 
-//    @Override
-//    public List<DeptMemberResponse> getDeptAndMember(String departmentId) {
-//        return deptMemberRepository.selectDeptMemberById(departmentId);
-//    }
-
     @Override
     public List<DepartmentMember> getDeptAndMember(String id) {
         return deptMemberRepository.findByPk_DepartmentId(id);

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -21,33 +22,40 @@ public class DeptMemberController {
     private final DeptMemberService deptMemberService;
     private final ModelMapper modelMapper;
 
-    /*Accept 헤더를 인자로 받는지 체크하고 받지 않는다면 400 Bad Request를 응답합니다.*/
+    /*Accept 헤더를 인자로 받는지 체크하고 받지 않는다면 400 Bad Request를 응답합니다.
+     * 파라미터 값으로 departmentId을 넣지 않은 경우 400 Bad Request를 응답합니다.*/
     @GetMapping("/department-members")
-    public ResponseEntity<List<DeptMemberDto>> getDeptMember(@RequestParam String departmentId,
-                                                             @RequestHeader(HttpHeaders.ACCEPT) String header) {
+    public ResponseEntity<List<List<DeptMemberDto>>> getDeptMember(@RequestParam List<String> departmentId,
+                                                                   @RequestHeader(HttpHeaders.ACCEPT) String header) {
 
-        /*departmentId 값을 넣지 않은 경우 400 Bad Request를 응답합니다*/
-        if (departmentId == null || departmentId.equals("")) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        /*Accept 헤더가 application/json가 아니라면 400 Bad Request를 응답합니다. */
+        /*Accept 헤더가 application/json이 아니라면 400 Bad Request를 응답합니다. */
         if (!header.equals("application/json")) {
             return ResponseEntity.badRequest().build();
         }
 
-        List<DepartmentMember> entityDepartmentMember = deptMemberService.getDeptAndMember(departmentId);
+        List<List<DeptMemberDto>> deptMemberList = new ArrayList<>();
 
-        /*departmentId로 가져온 값이 없다면 200 Ok와 empty body를 응답합니다.*/
-        if (entityDepartmentMember.size() == 0) {
+        for (String id : departmentId) {
+            List<DepartmentMember> entityDeptMemberList = deptMemberService.getDeptAndMember(id);
+
+            if (entityDeptMemberList.size() == 0) {
+                continue;
+            }
+
+            List<DeptMemberDto> dtoDeptMemberList = entityDeptMemberList.stream()
+                    .map(this::convertEntityToDto)
+                    .collect(Collectors.toList());
+
+            deptMemberList.add(dtoDeptMemberList);
+        }
+
+        /*departmentId로 가져온 값이 없다면 (DepartmentMember에 등록되지 않은 부서명을 입력한 경우)
+        200 Ok와 empty body를 응답합니다.*/
+        if (deptMemberList.size() == 0) {
             return ResponseEntity.ok(null);
         }
 
-        List<DeptMemberDto> DeptMemberDtoList = entityDepartmentMember.stream()
-                .map(this::convertEntityToDto)
-                .collect(Collectors.toList());
-
-        return ResponseEntity.ok(DeptMemberDtoList);
+        return ResponseEntity.ok(deptMemberList);
     }
 
     public DeptMemberDto convertEntityToDto(DepartmentMember customer) {
