@@ -1,6 +1,6 @@
 package com.academy.finalproject.service;
 
-import com.academy.finalproject.domain.DeptMemberResponse;
+import com.academy.finalproject.entity.DepartmentMember;
 import com.academy.finalproject.repository.DeptMemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -12,8 +12,13 @@ import java.util.List;
 public class DeptMemberServiceImpl implements DeptMemberService {
     private final DeptMemberRepository deptMemberRepository;
 
+//    @Override
+//    public List<DeptMemberResponse> getDeptAndMember(String departmentId) {
+//        return deptMemberRepository.selectDeptMemberById(departmentId);
+//    }
+
     @Override
-    public List<DeptMemberResponse> getDeptAndMember(String departmentId) {
-        return deptMemberRepository.selectDeptMemberById(departmentId);
+    public List<DepartmentMember> getDeptAndMember(String id) {
+        return deptMemberRepository.findByPk_DepartmentId(id);
     }
 }
